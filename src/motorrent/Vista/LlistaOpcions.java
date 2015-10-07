@@ -22,8 +22,13 @@ class LlistaOpcions
     
     /* Variables para menus */
     private final String noClient;
+        /* usuarios */
     private final String clientYreserva;
     private final String clientNreserva;
+        /* gerente */
+    private final String gerentFirstMenu;
+        /* jefe */
+    private final String jefeFirstMenu;
     
     /* Variables para errores */
     private final String errorMenu;
@@ -51,13 +56,35 @@ class LlistaOpcions
                 Cgreen ( "l" ) + " - Logarse\n"         +
                 Cgreen ( "r" ) + " - Registrarse\n"     +
                 Cgreen ( "q" ) + " - Salir";
+                /* users */
         clientNreserva =
-                "Estas logeado.\n"              +
-                "Escoja la opcion deseada:\n"   +
+                "Estas logeado.\n"                      +
+                "Escoja la opcion deseada:\n"           +
                 Cgreen ( "r" ) + " - Hacer reserva\n"   +
                 Cgreen ( "b" ) + " - Darse de baja\n"   +
                 Cgreen ( "s" ) + " - Salir";
-        clientYreserva = "";
+        clientYreserva =
+                "Estas logeado.\n"                              +
+                "Escoja la opcion deseada:\n"                   +
+                Cgreen ( "m" ) + " - Modificar local destino\n" +
+                Cgreen ( "b" ) + " - Darse de baja\n"           +
+                Cgreen ( "s" ) + " - Salir";
+                /* gerent */
+        gerentFirstMenu =
+                "Eres gerente.\n"                                   +
+                "Escoja la opcion deseada:\n"                       +
+                Cgreen ( "m" ) + " - Registrar moto\n"              +
+                Cgreen ( "g" ) + " - Gestionar local\n"             +
+                Cgreen ( "r" ) + " - Comprovar reserva\n"           +
+                Cgreen ( "c" ) + " - Comprovar stock de motos\n"    +
+                Cgreen ( "s" ) + " - Salir";
+                /* jefe */
+        jefeFirstMenu =
+                "Eres el jefe.\n"                           +
+                "Escoja la opcion deseada:\n"               +
+                Cgreen ( "v" ) + " - Ver stock motos\n"     +
+                Cgreen ( "g" ) + " - Gestionar locales\n"   +
+                Cgreen ( "s" ) + " - Salir";
         
         /* Errores */
         errorMenu = Cred ("La entrada no a sido identificada.") +" Profavor, entra lo que pide el menu";
@@ -82,7 +109,33 @@ class LlistaOpcions
      * @return String de las opciones que tiene
      */
     public String getNoClient () {return noClient;}
-    
+/* user */
+    /**
+     * Menu para los usuarios logados que actualmente no tienen reserva
+     * @return String de las opciones que tiene.
+     */
+    public String getClienteSinReserva () {return clientNreserva; }
+
+    /**
+     * Menu para los usuarios logados que estan sin finalizar su reserva
+     * @return String de las opciones que tiene.
+     */
+    public String getClienteConReserva () {return clientYreserva; }
+
+/* gerente */
+    /**
+     * Menu principal para los gerentes
+     * @return String de las opciones que tiene.
+     */
+    public String getGerent () {return gerentFirstMenu; }
+
+/* jefe */
+    /**
+     * Menu principal del jefe
+     * @return String de las opciones que tiene.
+     */
+    public String getJefe () {return jefeFirstMenu; }
+
     /************************ Errors *****************************/
     /**
      * Mensaje d'error en seleccionar un elemento

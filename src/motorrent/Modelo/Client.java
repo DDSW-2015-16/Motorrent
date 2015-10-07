@@ -18,5 +18,7 @@ public class Client
         reserva = false;
     }
     
+    public void setStatReserva (boolean e) { reserva = e; }
+    
     public boolean HaveReserva () {return reserva;}
 }

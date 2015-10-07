@@ -22,6 +22,8 @@ public class Controlador implements Serializable
     Client tmpClient;
     public Controlador ()
     {
+        /* Normalment aquest no es necessari, pero ara no tinc llistes... */
+        tmpClient = new Client ();
     }
     
     /**
@@ -29,4 +31,10 @@ public class Controlador implements Serializable
      * @return Bolean el qual true si la echo i false sino.
      */
     public boolean HaveReserva (){ return tmpClient.HaveReserva (); }
+    
+    /**
+     * Dir que el client a fet una reserva.
+     * Un estat de moment necessari per a poder fer els experiments amb el menu
+     */
+    public void MakeReserva () { tmpClient.setStatReserva(true); }
 }
