@@ -7,7 +7,7 @@ package motorrent.Vista;
  *
  * @author  Albert, Arnau i Marc
  */
-public class Motorrent {
+public class MOTORENT {
 
     /**
      * @param args the command line arguments

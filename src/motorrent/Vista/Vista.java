@@ -6,7 +6,7 @@
 package motorrent.Vista;
 
 /* Paquets propis */
-import motorrent.Controlador.Controlador;
+import motorrent.Controlador.Motorent;
 
 /* Paquets de java */
 import java.util.Scanner;
@@ -18,14 +18,14 @@ import java.util.Scanner;
 public class Vista
 {
     private Scanner scanner;
-    private Controlador controlador;
+    private Motorent controlador;
     private LlistaOpcions strings;
     
     public Vista ()
     {
         scanner = new Scanner ( System.in );
         strings = new LlistaOpcions ();
-        controlador = new Controlador ();
+        controlador = new Motorent ();
     }
     
     private void Logarse ()

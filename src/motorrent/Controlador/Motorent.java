@@ -10,17 +10,22 @@ import motorrent.Modelo.Client;
 
 /* Paquets de java */
 import java.io.Serializable; /* Per poder guardar els canvis */
+import java.util.ArrayList;
+import motorrent.Modelo.Local;
+import motorrent.Modelo.Usuari;
 
 
 /**
  *
  * @author Albert, Arnau i Marc
  */
-public class Controlador implements Serializable
+public class Motorent implements Serializable
 {
     /* Elements temporals pel funcionament */
     Client tmpClient;
-    public Controlador ()
+    ArrayList lst_usuari = new ArrayList<Usuari>();
+    ArrayList lst_local = new ArrayList<Local>();
+    public Motorent ()
     {
         /* Normalment aquest no es necessari, pero ara no tinc llistes... */
         tmpClient = new Client ();

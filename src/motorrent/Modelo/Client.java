@@ -5,13 +5,27 @@
  */
 package motorrent.Modelo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Albert, Arnau i Marc
  */
-public class Client
+public class Client extends Usuari
 {
     private boolean reserva;
+    private String Nom;
+    private String Cognom;
+    private String DNI;
+    private int faltes;
+    private String Correu;
+    private int Tel;
+    private boolean Vip;
+    private Adreça adr;
+    private ComptaCorrent cc;
+    private ArrayList<Reserva> historial = new ArrayList<Reserva>();
+    private Data dataN;
+    private Data dataIns;
     
     public Client ()
     {
