@@ -15,4 +15,9 @@ public class Adreça {
     private String Poblacio;
     private String Provincia;
     private int CP;
+    private String tot;
+    public Adreça (String e)
+    {
+        tot = e;
+    }
 }

@@ -23,12 +23,18 @@ public class Motorent implements Serializable
 {
     /* Elements temporals pel funcionament */
     Client tmpClient;
-    ArrayList lst_usuari = new ArrayList<Usuari>();
-    ArrayList lst_local = new ArrayList<Local>();
+    ArrayList lst_usuari;
+    ArrayList lst_local;
+    
     public Motorent ()
     {
         /* Normalment aquest no es necessari, pero ara no tinc llistes... */
         tmpClient = new Client ();
+        lst_usuari = new ArrayList<Usuari>();
+        lst_local = new ArrayList<Local>();
+        
+        MotoRentDataManager d = new MotoRentDataManager();
+        d.obtenirDades (this, "../../data/MotoRent.xml");
     }
     
     /**
@@ -42,4 +48,26 @@ public class Motorent implements Serializable
      * Un estat de moment necessari per a poder fer els experiments amb el menu
      */
     public void MakeReserva () { tmpClient.setStatReserva(true); }
+    
+    /**
+     * Parser, amb XML
+     */
+    public void crearLocal(String id, String capacitat, String gestorID, String adreca)
+    {
+        /* Aqui fer un programa per a controlar el gestorID */
+        Local l = new Local (id, CastStringInt (capacitat), adreca);
+        lst_local.add(l);
+    }
+    
+    /*
+    Canvi de string a int
+    ja que mes d'un cop, i fins i tot el vista o pot fer
+    */
+    private int CastStringInt (String e)
+    {
+        int s;
+  /*vigilar error */
+            s = Integer.parseInt(e);
+            return s;
+    }
 }

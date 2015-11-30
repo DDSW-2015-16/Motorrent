@@ -12,8 +12,16 @@ import java.util.ArrayList;
  * @author Marc
  */
 public class Local {
-    private int Capacitat;
+    private String id;
+    private int capacitat;
     private ArrayList<Moto> lst_moto = new ArrayList<Moto>();
     private ArrayList<Reserva> lst_reserva = new ArrayList<Reserva>();
-    private Adreça adr;
+    private Adreça adreça;
+    
+    public Local (String eid, int ecapacitat, String adreca)
+    {
+        id = eid;
+        capacitat = ecapacitat;
+        adreça = new Adreça (adreca);
+    }
 }
