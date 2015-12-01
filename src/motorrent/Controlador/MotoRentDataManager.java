@@ -66,8 +66,7 @@ public class MotoRentDataManager {
 
 		/* TODO: Aqui feu el necessari per a crear les vostres motos
 		 */
-
-
+            motorent.crearMoto (id, matricula, marca, model, color, estat);
 	}
 
 	/**

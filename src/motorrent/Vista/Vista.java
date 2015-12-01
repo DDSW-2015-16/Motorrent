@@ -25,7 +25,7 @@ public class Vista
     {
         scanner = new Scanner ( System.in );
         strings = new LlistaOpcions ();
-        controlador = new Motorent ();
+        controlador = new Motorent ("data/MotoRent.xml");
     }
     
     private void Logarse ()

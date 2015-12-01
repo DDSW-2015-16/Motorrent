@@ -24,4 +24,20 @@ public class Local {
         capacitat = ecapacitat;
         adreça = new Adreça (adreca);
     }
+    
+    /******************* PARSER **************************/
+    /**
+     * Creo aqui la moto pel ... algo estrany de teoria
+     * @param id
+     * @param matricula
+     * @param marca
+     * @param model
+     * @param color
+     * @param estat 
+     */
+    public void crearMoto(String id, String matricula, String marca, String model, String color, String estat)
+    {
+        Moto m = new Moto (id, matricula, marca, model, color, estat);
+        lst_moto.add(m);
+    }
 }

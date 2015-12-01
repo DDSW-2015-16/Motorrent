@@ -7,12 +7,14 @@ package motorrent.Controlador;
 
 /* Paquets propis */
 import motorrent.Modelo.Client;
+import motorrent.Modelo.Local;
+import motorrent.Modelo.Usuari;
 
 /* Paquets de java */
 import java.io.Serializable; /* Per poder guardar els canvis */
 import java.util.ArrayList;
-import motorrent.Modelo.Local;
-import motorrent.Modelo.Usuari;
+import java.lang.NumberFormatException;
+
 
 
 /**
@@ -25,16 +27,17 @@ public class Motorent implements Serializable
     Client tmpClient;
     ArrayList lst_usuari;
     ArrayList lst_local;
+    Local tmpL; /* El faig anar per a crear, perque en aquest afeguira les motos */
     
-    public Motorent ()
+    public Motorent (String xml)
     {
         /* Normalment aquest no es necessari, pero ara no tinc llistes... */
         tmpClient = new Client ();
-        lst_usuari = new ArrayList<Usuari>();
-        lst_local = new ArrayList<Local>();
+        lst_usuari = new ArrayList<Usuari> ();
+        lst_local = new ArrayList<Local> ();
         
         MotoRentDataManager d = new MotoRentDataManager();
-        d.obtenirDades (this, "../../data/MotoRent.xml");
+        d.obtenirDades (this, xml);
     }
     
     /**
@@ -49,25 +52,34 @@ public class Motorent implements Serializable
      */
     public void MakeReserva () { tmpClient.setStatReserva(true); }
     
+    /*******************    Parse   *******************************************************/
     /**
      * Parser, amb XML
      */
     public void crearLocal(String id, String capacitat, String gestorID, String adreca)
     {
         /* Aqui fer un programa per a controlar el gestorID */
-        Local l = new Local (id, CastStringInt (capacitat), adreca);
-        lst_local.add(l);
+        tmpL = new Local (id, ParseInt (capacitat), adreca);
+        lst_local.add(tmpL);
+    }
+    
+    public void crearMoto(String id, String matricula, String marca, String model, String color, String estat)
+    {
+        tmpL.crearMoto (id, matricula, marca, model, color, estat);
     }
     
     /*
-    Canvi de string a int
-    ja que mes d'un cop, i fins i tot el vista o pot fer
-    */
-    private int CastStringInt (String e)
+     * Cambia l'estring en digit.
+     * en cas de no funcionar, retornara un zero
+     */
+    private int ParseInt (String e)
     {
         int s;
-  /*vigilar error */
+        try
+        {
             s = Integer.parseInt(e);
-            return s;
+        } catch (NumberFormatException ex)
+        {   s = 0;  }
+        return s;
     }
 }

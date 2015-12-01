@@ -10,10 +10,19 @@ package motorrent.Modelo;
  * @author Marc
  */
 public class Moto {
-    private int Identificador;
-    private double Kilometres;
-    private boolean Disponible;
+    private String identificador;
+    private double kilometres;
+    private boolean disponible;
     private Estat est;
     private EspecificacioMoto esp;
+    private String matricula;
+    private String color;
+    
+    public Moto (String id, String matricula, String marca, String model, String color, String estat)
+    {
+        identificador = id;
+        this.matricula = matricula;
+        this.color = color;
+    }
     
 }
