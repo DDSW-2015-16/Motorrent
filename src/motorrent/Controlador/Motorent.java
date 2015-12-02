@@ -82,4 +82,17 @@ public class Motorent implements Serializable
         {   s = 0;  }
         return s;
     }
+    /************************** Imprimir *****************/
+    /**
+     * 
+     */
+    public String ImprimirLocals() {
+        String sortida = "";
+        int i;
+        for (i = 0; i < lst_local.size(); ++i) {
+            sortida += i + ".- \n";
+            sortida += (lst_local.get(i)) + "\n";
+        }
+        return sortida;
+    }
 }

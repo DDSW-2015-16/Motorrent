@@ -25,4 +25,13 @@ public class Moto {
         this.color = color;
     }
     
+    @Override
+    public String toString() {
+        String s = "";
+        s += "Identificador: " + identificador + "\n" +
+                "Matricula: " + matricula + "\n" +
+                "Color: " + color + "\n";
+        return s;
+                
+    }
 }

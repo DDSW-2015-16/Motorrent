@@ -20,4 +20,9 @@ public class Adreça {
     {
         tot = e;
     }
+    
+    @Override
+    public String toString() {
+        return tot;
+    }
 }

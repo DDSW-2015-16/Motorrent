@@ -178,6 +178,7 @@ public class Vista
                     break;
                 case ( "g" ):
                     System.out.println ("Gestionado los locales");
+                    System.out.println(controlador.ImprimirLocals());
                     break;
                 case ( "s" ):
                     loop = false;

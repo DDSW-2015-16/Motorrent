@@ -40,4 +40,20 @@ public class Local {
         Moto m = new Moto (id, matricula, marca, model, color, estat);
         lst_moto.add(m);
     }
+    
+    @Override
+    public String toString () {
+        String s = "";
+        s = s + 
+                "ID: " + id + "\n" +
+                "Capacitat: " + capacitat + "\n" + 
+                "Adreça: " + adreça + "\n";
+        int i;
+        s += "\nMotos del local: \n";
+        for(i = 0; i < lst_moto.size(); ++i) {
+            s += i + ".- \n";
+            s+= lst_moto.get(i) + "\n";
+        }
+        return s;
+    }
 }
