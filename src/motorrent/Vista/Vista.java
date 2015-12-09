@@ -112,6 +112,7 @@ public class Vista
                     break;
                 case ( "r" ):
                     System.out.println ("Fer reserva");
+                    escriu(controlador.ferReserva());
                     break;
                 case ( "m" ):
                     System.out.println ("Modificar reserva");
@@ -240,7 +241,7 @@ public class Vista
                 "c - Registrar-se com a Client"
         );
         opcio = scanner.nextLine();
-        System.out.println("Introdueixi el nom d'usuari que desitja :");
+        System.out.println("Introdueixi el nom d'usuari que desitji :");
         while(controlador.existeixUsuari(u = scanner.nextLine())) {
              System.out.println("L'usuari ja existeix, torna a introduir un altre nom d'usuari.");
         }
@@ -262,4 +263,34 @@ public class Vista
             controlador.registreClient(u, p, n, d, a);
         }
     }
-}
+    private void ferReserva(){
+        
+    }
+    
+    
+    public void escriu(String s){
+         System.out.println(s);
+     }
+
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}   

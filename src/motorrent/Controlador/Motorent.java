@@ -19,6 +19,7 @@ import motorrent.Modelo.Gerent;
 
 
 
+
 /**
  *
  * @author Albert, Arnau i Marc
@@ -29,7 +30,8 @@ public class Motorent implements Serializable
     ArrayList lst_usuari;
     ArrayList lst_local;
     Local tmpL; /* El faig anar per a crear, perque en aquest afeguira les motos */
-    Usuari tmpU;
+    Usuari Usuari;
+
     
     public Motorent (String xml)
     {
@@ -41,12 +43,7 @@ public class Motorent implements Serializable
         d.obtenirDades (this, xml);
     }
     
-    /**
-     * Pregunta si el cliente ha echo una reserva
-     * @return Bolean el qual true si la echo i false sino.
-     */
-    public boolean HaveReserva (){ return false; }
-    
+     
     /**
      * Dir que el client a fet una reserva.
      * Un estat de moment necessari per a poder fer els experiments amb el menu
@@ -130,20 +127,20 @@ public class Motorent implements Serializable
         for(Object u: lst_usuari) {
             if((((Usuari)u).getUsuari().equals(us)) && ((Usuari)u).getPassword().equals(ps)){
                 trobat = true;
-                tmpU = (Usuari) u;
+                Usuari = (Usuari) u;
             }       
         }
         return trobat;
     }
     public String typeUser() {
         String s = "";
-        if(tmpU instanceof Client) {
+        if(Usuari instanceof Client) {
             s = "c";
         }
-        else if(tmpU instanceof Gerent) {
+        else if(Usuari instanceof Gerent) {
             s = "g";
         }
-        else if(tmpU instanceof Administrador) {
+        else if(Usuari instanceof Administrador) {
             s = "a";
         }
         return s;
@@ -171,8 +168,25 @@ public class Motorent implements Serializable
             }
         }
         id += i;
-        Client nou = new Client(id,n,d,a,u,p,"false","fasle",0);
+        Client nou = new Client(id,n,d,a,u,p,"false","false",0);
         lst_usuari.add(nou);
     }
+    
+    
+    
+    /*Cambiar diagrama de clases a tipo String*/
+    public String ferReserva(){
+        boolean isReserva = true;
+        if ((((Client)Usuari).hasReserva())) {            
+            isReserva=false;
+        }else{
+            ((Client)Usuari).createReserva(String localOrigen,String localDesti, data dataRecollida, data dataDevolucio, Moto moto);
+
+        }
+        
+        return isReserva;
+    }
+
 }
+
 

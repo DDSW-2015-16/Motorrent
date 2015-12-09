@@ -28,7 +28,7 @@ public class Client extends Usuari
     private Data dataIns;
     private String id;
     private String renovacio;
-    
+    private Reserva res;
     public Client() {
         
     }
@@ -57,6 +57,14 @@ public class Client extends Usuari
         
         return s;
     }
+    /*Afegir al diagrama de classes*/
+    public boolean hasReserva(){
+        if (res!= null){
+            return false;
+        }else{
+            return true;
+        }
+    }
     
     public String getUser() {
         return super.getUsuari();
@@ -64,4 +72,10 @@ public class Client extends Usuari
     public String getPass() {
         return super.getPassword();
     }
+
+    public void createReserva() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   
 }
