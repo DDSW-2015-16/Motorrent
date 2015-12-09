@@ -21,6 +21,8 @@ class LlistaOpcions
     private final String exit;
     
     /* Variables para menus */
+    private final String Client;
+    
     private final String noClient;
         /* usuarios */
     private final String clientYreserva;
@@ -50,6 +52,16 @@ class LlistaOpcions
         exit = "Deseamos verlo pronto por aqui";
         
         /* Menus */
+        Client = 
+                "Menu Client: \n" +
+                "Escoja la opcion deseada:\n"           +
+                Cgreen ( "c" ) + " - Comprovar si té alguna reserva activa\n"         +
+                Cgreen ( "r" ) + " - Fer una reserva \n"     +
+                Cgreen ( "m" ) + " - Modificar una reserva \n"     +
+                Cgreen ( "f" ) + " - Consultar numero de faltes \n"     +
+                Cgreen ( "d" ) + " - Consultar dades personals \n"    +
+                Cgreen ( "s" ) + " - Salir";
+        
         noClient =
                 "No estas ni logado ni registrado.\n"   +
                 "Escoja la opcion deseada:\n"           +
@@ -104,6 +116,8 @@ class LlistaOpcions
     public String getExit () {return exit; }
     
     /************************ Menu *****************************/
+    public String getClient() {return Client;}
+    
     /**
      * Menu para los usuarios no identificados
      * @return String de las opciones que tiene

@@ -14,6 +14,8 @@ import motorrent.Modelo.Usuari;
 import java.io.Serializable; /* Per poder guardar els canvis */
 import java.util.ArrayList;
 import java.lang.NumberFormatException;
+import motorrent.Modelo.Administrador;
+import motorrent.Modelo.Gerent;
 
 
 
@@ -24,15 +26,14 @@ import java.lang.NumberFormatException;
 public class Motorent implements Serializable
 {
     /* Elements temporals pel funcionament */
-    Client tmpClient;
     ArrayList lst_usuari;
     ArrayList lst_local;
     Local tmpL; /* El faig anar per a crear, perque en aquest afeguira les motos */
+    Usuari tmpU;
     
     public Motorent (String xml)
     {
         /* Normalment aquest no es necessari, pero ara no tinc llistes... */
-        tmpClient = new Client ();
         lst_usuari = new ArrayList<Usuari> ();
         lst_local = new ArrayList<Local> ();
         
@@ -44,13 +45,12 @@ public class Motorent implements Serializable
      * Pregunta si el cliente ha echo una reserva
      * @return Bolean el qual true si la echo i false sino.
      */
-    public boolean HaveReserva (){ return tmpClient.HaveReserva (); }
+    public boolean HaveReserva (){ return false; }
     
     /**
      * Dir que el client a fet una reserva.
      * Un estat de moment necessari per a poder fer els experiments amb el menu
-     */
-    public void MakeReserva () { tmpClient.setStatReserva(true); }
+     *
     
     /*******************    Parse   *******************************************************/
     /**
@@ -66,6 +66,22 @@ public class Motorent implements Serializable
     public void crearMoto(String id, String matricula, String marca, String model, String color, String estat)
     {
         tmpL.crearMoto (id, matricula, marca, model, color, estat);
+    }
+    
+    public void crearClient(String id, String nom, String dni, String adreca, String usuari, String password, String vip, String renovacio, String faltes) {
+        Client tmpC = new Client(id,nom,dni,adreca,usuari,password,vip,renovacio,ParseInt (faltes));
+        lst_usuari.add(tmpC);
+        
+    }
+    public void crearGerent(String id, String nom, String usuari, String password) {
+        Gerent tmpG = new Gerent(usuari,password,id,nom);
+        lst_usuari.add(tmpG);
+        
+    }
+    public void crearAdministrador(String id, String nom, String usuari, String password) {
+        Administrador tmpA = new Administrador(usuari,password,id,nom);
+        lst_usuari.add(tmpA);
+        
     }
     
     /*
@@ -90,9 +106,73 @@ public class Motorent implements Serializable
         String sortida = "";
         int i;
         for (i = 0; i < lst_local.size(); ++i) {
-            sortida += i + ".- \n";
+            sortida += "Local: " + i + ".- \n";
             sortida += (lst_local.get(i)) + "\n";
         }
         return sortida;
     }
+    
+    public String ImprimirUsuaris() {
+        String sortida = "";
+        int i;
+        for(i = 0; i < lst_usuari.size(); ++i) {
+            sortida += i + ".- \n";
+            sortida += (lst_usuari.get(i)) + "\n";
+        }
+        return sortida;
+    }
+    
+    /**
+     * LogIn
+     */
+    public boolean checkUser(String us, String ps) {
+        boolean trobat = false;
+        for(Object u: lst_usuari) {
+            if((((Usuari)u).getUsuari().equals(us)) && ((Usuari)u).getPassword().equals(ps)){
+                trobat = true;
+                tmpU = (Usuari) u;
+            }       
+        }
+        return trobat;
+    }
+    public String typeUser() {
+        String s = "";
+        if(tmpU instanceof Client) {
+            s = "c";
+        }
+        else if(tmpU instanceof Gerent) {
+            s = "g";
+        }
+        else if(tmpU instanceof Administrador) {
+            s = "a";
+        }
+        return s;
+    }
+    /**
+     * ExisteixUser
+     */
+    public boolean existeixUsuari(String usuari) {
+        boolean existeix = false;
+        int i;
+        for(i = 0; i < lst_usuari.size() && !existeix; ++i) {
+            if(((Usuari)lst_usuari.get(i)).getUsuari().equals(usuari)) {
+                existeix = true;
+            }
+        }
+        return existeix;
+    }
+    
+    public void registreClient(String u, String p, String n, String d, String a) {
+        String id = "c";
+        int i = 1;
+        for(Object us: lst_usuari) {
+            if(us instanceof Client) {
+                ++i;
+            }
+        }
+        id += i;
+        Client nou = new Client(id,n,d,a,u,p,"false","fasle",0);
+        lst_usuari.add(nou);
+    }
 }
+

@@ -101,7 +101,7 @@ public class MotoRentDataManager {
 		/* TODO: Creeu aqui el vostre admin
 		 */
 
-
+            motorent.crearAdministrador(id, nom, usuari, password);
 	}
 	
 	/**
@@ -116,8 +116,7 @@ public class MotoRentDataManager {
 
 		/* TODO: Creeu aqui el vostre admin
 		 */
-
-
+            motorent.crearGerent(id, nom, usuari, password);
 	}
 
 	/**
@@ -138,7 +137,7 @@ public class MotoRentDataManager {
 
 		/* TODO: Creeu aqui el vostre client
 		 */
-
+            motorent.crearClient(id, nom, dni, adreca, usuari, password, vip, renovacio, faltes);
 
 	}
 }

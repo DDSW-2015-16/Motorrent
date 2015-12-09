@@ -20,19 +20,48 @@ public class Client extends Usuari
     private int faltes;
     private String Correu;
     private int Tel;
-    private boolean Vip;
+    private String Vip;
     private Adreça adr;
     private ComptaCorrent cc;
     private ArrayList<Reserva> historial = new ArrayList<Reserva>();
     private Data dataN;
     private Data dataIns;
+    private String id;
+    private String renovacio;
     
-    public Client ()
-    {
-        reserva = false;
+    public Client() {
+        
     }
     
-    public void setStatReserva (boolean e) { reserva = e; }
+    public Client (String id, String nom, String dni, String adreca, String usuari, String password, String vip, String renovacio, int faltes)
+    {
+        super(usuari,password);
+        this.id = id;
+        Nom = nom;
+        DNI = dni;
+        adr = new Adreça(adreca);
+        Vip = vip;
+        this.renovacio = renovacio;
+        this.faltes = faltes;
+        
+    }
+    public String toString() {
+        String s = "";
+        s += "Client: \n" +
+                "Identificador: " + id + "\n" +
+                "Nom: " + Nom + "\n" +
+                "DNI: " + DNI + "\n" +
+                "Adreça: " + adr + "\n" +
+                "Faltes: " + faltes +"\n" +
+                "VIP :" + Vip + "\n";
+        
+        return s;
+    }
     
-    public boolean HaveReserva () {return reserva;}
+    public String getUser() {
+        return super.getUsuari();
+    }
+    public String getPass() {
+        return super.getPassword();
+    }
 }

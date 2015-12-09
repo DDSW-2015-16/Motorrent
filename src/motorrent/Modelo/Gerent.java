@@ -10,6 +10,21 @@ package motorrent.Modelo;
  * @author Marc
  */
 public class Gerent extends Usuari{
-    private int Identificador;
+    private String Identificador;
     private Local local;
+    private String nom;
+    
+    public Gerent(String usuari, String password, String id, String nom) {
+        super(usuari, password);
+        Identificador = id;
+        this.nom = nom;
+    }
+    
+    public String toString() {
+        String s = "";
+        s += "Gerent: \n" +
+                "Identificador: " + Identificador + "\n" +
+                "Nom: " + nom + "\n";
+        return s;
+    }
 }

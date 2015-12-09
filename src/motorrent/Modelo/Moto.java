@@ -17,12 +17,14 @@ public class Moto {
     private EspecificacioMoto esp;
     private String matricula;
     private String color;
+    private String estat;
     
     public Moto (String id, String matricula, String marca, String model, String color, String estat)
     {
         identificador = id;
         this.matricula = matricula;
         this.color = color;
+        this.estat = estat;
     }
     
     @Override
@@ -30,7 +32,8 @@ public class Moto {
         String s = "";
         s += "Identificador: " + identificador + "\n" +
                 "Matricula: " + matricula + "\n" +
-                "Color: " + color + "\n";
+                "Color: " + color + "\n" +
+                "Estat: " + estat + "\n";   
         return s;
                 
     }

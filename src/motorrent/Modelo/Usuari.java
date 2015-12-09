@@ -10,6 +10,21 @@ package motorrent.Modelo;
  * @author Marc
  */
 public class Usuari {
-    private String User;
-    private String Password;
+    private String user;
+    private String password;
+    
+    public Usuari() {
+        
+    }
+    public Usuari(String usuari, String password) {
+        user = usuari;
+        this.password = password;
+    }
+    public String getUsuari() {
+        return user;
+    }
+    
+    public String getPassword() {
+        return password;
+    }
 }

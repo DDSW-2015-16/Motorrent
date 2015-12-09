@@ -33,22 +33,35 @@ public class Vista
         System.out.println
         (
                 "Ha entrat al menu de logarse\n" +
-                        "c - client\n" +
-                        "g - gerent\n" +
-                        "j - jefe\n" +
+                        "l - LogIn\n" +
                         "s - sortir"
         );
         switch ( scanner.nextLine() )
         {
-            case ("c"):
-                System.out.println ("Felicitats, s'ha logat correctament!\n Falta fer classes");
-                MenuCliente ();
-                break;
-            case ("g"):
-                MenuGerente ();
-                break;
-            case ("j"):
-                MenuJefe ();
+            case ("l"):
+                System.out.println ("Introdueixi el seu nom d'usuari: ");
+                String us;
+                String ps;
+                us = scanner.nextLine();
+                System.out.println("Introdueixi la seva contrasenya:");
+                ps = scanner.nextLine();
+                if(controlador.checkUser(us, ps)) {
+                    switch(controlador.typeUser()) {
+                        case ("c"):
+                            MenuCliente();
+                            break;
+                        case ("g"):
+                            MenuGerente();
+                            break;
+                        case ("a"):
+                            MenuJefe();
+                            break;
+                    }
+                }
+                else {
+                    System.out.println("Usuari o contrasenya incorrecta, torna a provar-ho");
+                    break;
+                }
                 break;
             case ("s"):
                 break;
@@ -71,7 +84,8 @@ public class Vista
                     Logarse ();
                     break;
                 case ( "r" ):
-                    System.out.println ("Felicitats s'ha registrat correctament!\n Falta fer classes");
+                    demanarDades();
+                    System.out.print(controlador.ImprimirUsuaris());
                     MenuCliente ();
                     break;
                 case ( "q" ):
@@ -88,11 +102,34 @@ public class Vista
     private void MenuCliente ()
     { /* No hay ningun printf, ja que los hacen los submenus corresponientes */
         boolean loop = true;
-        while (loop)/* preguntem si ja ha fet una reserva */
-            if ( controlador.HaveReserva () )
-                loop = MenuClientYesReserva (); /* Ja ha fet una reserva */
-            else /* encara no ha fet cap reserva */
-                loop = MenuClientNoReserva ();
+        while (loop)
+        {
+            System.out.println ( strings.getClient() );
+            switch ( scanner.nextLine() )
+            {
+                case ( "c" ):
+                    System.out.println ("Consultar reserva");
+                    break;
+                case ( "r" ):
+                    System.out.println ("Fer reserva");
+                    break;
+                case ( "m" ):
+                    System.out.println ("Modificar reserva");
+                    break;
+                case ( "f" ):
+                    System.out.println ("Consultar faltes");
+                    break;
+                case ("d"):
+                    System.out.println("Consultar dades");
+                    break;
+                case ( "s" ):
+                    loop = false;
+                    break;
+                default:
+                    System.out.println ( strings.getErrorMenu() );
+            }
+        }
+        
     }
     /* Entran los usuarios que han echo una reserva */
     private boolean MenuClientYesReserva ()
@@ -121,7 +158,6 @@ public class Vista
         {
             case ( "r" ):
                 System.out.println ( "S'ha registrat correctament!" );
-                controlador.MakeReserva();
                 break;
             case ( "b" ):
                 System.out.println ( "Fins aviat, aqui se donara de baixa" );
@@ -186,6 +222,44 @@ public class Vista
                 default:
                     System.out.println ( strings.getErrorMenu() );
             }
+        }
+    }
+    
+    /******** DEMANAR DADES PEL REGISTRE ************/
+    private void demanarDades() {
+        String u = "";
+        String p = "";
+        String d = "";
+        String a = "";
+        String n = "";
+        String opcio = "";
+        System.out.println(
+                "Seleccioni una opció: \n " +
+                "a - Registrar-se com a Administrador \n "+
+                "b - Registrar-se com a Gerent \n"+
+                "c - Registrar-se com a Client"
+        );
+        opcio = scanner.nextLine();
+        System.out.println("Introdueixi el nom d'usuari que desitja :");
+        while(controlador.existeixUsuari(u = scanner.nextLine())) {
+             System.out.println("L'usuari ja existeix, torna a introduir un altre nom d'usuari.");
+        }
+        System.out.println("Introdueix la contrasenya: ");
+        p = scanner.nextLine();
+        System.out.println("Introdueix el nom i cognoms: ");
+        n = scanner.nextLine();
+        if(opcio.equals("a")) {
+            
+        }
+        if(opcio.equals("b")) {
+            
+        }
+        if(opcio.equals("c")) {
+            System.out.println("Introdueix el seu DNI: ");
+            d = scanner.nextLine();
+            System.out.println("Introdueix la seva adreça ");
+            a = scanner.nextLine();
+            controlador.registreClient(u, p, n, d, a);
         }
     }
 }
