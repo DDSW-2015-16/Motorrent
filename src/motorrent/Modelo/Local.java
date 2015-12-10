@@ -49,11 +49,20 @@ public class Local {
                 "Capacitat: " + capacitat + "\n" + 
                 "Adreça: " + adreça + "\n";
         int i;
+        return s;
+    }
+    public String imprimirMotos() {
+        String s = "";
+        int i;
         s += "\nMotos del local: \n";
         for(i = 0; i < lst_moto.size(); ++i) {
             s += i + ".- \n";
             s+= lst_moto.get(i) + "\n";
         }
         return s;
+    }
+    
+    public String getId() {
+        return id;
     }
 }

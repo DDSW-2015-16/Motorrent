@@ -31,6 +31,7 @@ public class Motorent implements Serializable
     ArrayList lst_local;
     Local tmpL; /* El faig anar per a crear, perque en aquest afeguira les motos */
     Usuari Usuari;
+    int numR = 0;
 
     
     public Motorent (String xml)
@@ -80,6 +81,8 @@ public class Motorent implements Serializable
         lst_usuari.add(tmpA);
         
     }
+    public void crearReserva(String id,String client,String moto, String cost, String falta, String local_inici,String hora_inici,String fecha_inici, String local_fi,String hora_fi,String fecha_fi) {
+    }
     
     /*
      * Cambia l'estring en digit.
@@ -109,6 +112,7 @@ public class Motorent implements Serializable
         return sortida;
     }
     
+    
     public String ImprimirUsuaris() {
         String sortida = "";
         int i;
@@ -136,6 +140,10 @@ public class Motorent implements Serializable
         String s = "";
         if(Usuari instanceof Client) {
             s = "c";
+            int max = 3;
+            if(((Client)Usuari).getFaltes()== max) {
+                s = "e";
+            }
         }
         else if(Usuari instanceof Gerent) {
             s = "g";
@@ -175,16 +183,18 @@ public class Motorent implements Serializable
     
     
     /*Cambiar diagrama de clases a tipo String*/
-    public String ferReserva(){
-        boolean isReserva = true;
-        if ((((Client)Usuari).hasReserva())) {            
-            isReserva=false;
-        }else{
-            ((Client)Usuari).createReserva(String localOrigen,String localDesti, data dataRecollida, data dataDevolucio, Moto moto);
-
+    public void ferReserva(){
+    }
+    
+    public boolean hasReserva() {
+        boolean res = false;
+        if(((Client)Usuari).hasReserva() == false) {
+            res = false;
         }
-        
-        return isReserva;
+        else {
+            res = true;
+        }
+        return res;
     }
 
 }

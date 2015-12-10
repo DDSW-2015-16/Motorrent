@@ -30,45 +30,32 @@ public class Vista
     
     private void Logarse ()
     {
-        System.out.println
-        (
-                "Ha entrat al menu de logarse\n" +
-                        "l - LogIn\n" +
-                        "s - sortir"
-        );
-        switch ( scanner.nextLine() )
-        {
-            case ("l"):
-                System.out.println ("Introdueixi el seu nom d'usuari: ");
-                String us;
-                String ps;
-                us = scanner.nextLine();
-                System.out.println("Introdueixi la seva contrasenya:");
-                ps = scanner.nextLine();
-                if(controlador.checkUser(us, ps)) {
-                    switch(controlador.typeUser()) {
-                        case ("c"):
-                            MenuCliente();
-                            break;
-                        case ("g"):
-                            MenuGerente();
-                            break;
-                        case ("a"):
-                            MenuJefe();
-                            break;
-                    }
-                }
-                else {
-                    System.out.println("Usuari o contrasenya incorrecta, torna a provar-ho");
+        System.out.println("Ha entrat al menu de logarse\n" );
+        System.out.println ("Introdueixi el seu nom d'usuari: ");
+        String us;
+        String ps;
+        us = scanner.nextLine();
+        System.out.println("Introdueixi la seva contrasenya:");
+        ps = scanner.nextLine();
+        if(controlador.checkUser(us, ps)) {
+            switch(controlador.typeUser()) {
+                case ("c"):
+                    MenuCliente();
                     break;
-                }
-                break;
-            case ("s"):
-                break;
-            default:
-                System.out.println ( strings.getErrorMenu() );
+                case ("e"):
+                    System.out.println("Acces denegat. Vosté té 3 o més faltes acumulades.");
+                case ("g"):
+                    MenuGerente();
+                    break;
+                case ("a"):
+                    MenuJefe();
+                    break;
+            }
         }
-        
+        else {
+            System.out.println("Usuari o contrasenya incorrecta, torna a provar-ho");
+            MenuNoIdentificado();
+        }
     }
     
     public void MenuNoIdentificado ()
@@ -112,8 +99,13 @@ public class Vista
                     break;
                 case ( "r" ):
                     System.out.println ("Fer reserva");
-                    escriu(controlador.ferReserva());
-                    break;
+                    if(controlador.hasReserva()) {
+                        System.out.println("Ja té una reserva feta");
+                        break;
+                    }
+                    else {
+                        System.out.println("Pot fer una reserva");
+                    }
                 case ( "m" ):
                     System.out.println ("Modificar reserva");
                     break;

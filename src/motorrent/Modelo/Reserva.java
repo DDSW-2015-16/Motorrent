@@ -10,7 +10,7 @@ package motorrent.Modelo;
  * @author Marc
  */
 public class Reserva {
-    private int Codi;
+    private int id;
     private int Retard;
     private Data DataR;
     private Data DataD;
@@ -18,4 +18,12 @@ public class Reserva {
     private Local Origen;
     private Local Desti;
     private Moto m;
+    private int cost;
+    private int falta;
+    
+    
+    public Reserva() {
+        
+    }
 }
+    

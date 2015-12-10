@@ -30,7 +30,6 @@ public class Client extends Usuari
     private String renovacio;
     private Reserva res;
     public Client() {
-        
     }
     
     public Client (String id, String nom, String dni, String adreca, String usuari, String password, String vip, String renovacio, int faltes)
@@ -59,10 +58,10 @@ public class Client extends Usuari
     }
     /*Afegir al diagrama de classes*/
     public boolean hasReserva(){
-        if (res!= null){
-            return false;
-        }else{
+        if (res != null){
             return true;
+        }else{
+            return false;
         }
     }
     
@@ -72,9 +71,14 @@ public class Client extends Usuari
     public String getPass() {
         return super.getPassword();
     }
-
-    public void createReserva() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int getFaltes() {
+        return faltes;
+    }
+    public String getId() {
+        return id;
+    }
+    public Reserva getReserva() {
+        return res;
     }
 
    
