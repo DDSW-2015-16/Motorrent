@@ -55,7 +55,7 @@ class LlistaOpcions
         Client = 
                 "Menu Client: \n" +
                 "Escoja la opcion deseada:\n"           +
-                Cgreen ( "c" ) + " - Comprovar si té alguna reserva activa\n"         +
+                Cgreen ( "c" ) + " - Consultar reserves anteriors\n"         +
                 Cgreen ( "r" ) + " - Fer una reserva \n"     +
                 Cgreen ( "m" ) + " - Modificar una reserva \n"     +
                 Cgreen ( "f" ) + " - Consultar numero de faltes \n"     +
@@ -63,7 +63,7 @@ class LlistaOpcions
                 Cgreen ( "s" ) + " - Salir";
         
         noClient =
-                "No estas ni logado ni registrado.\n"   +
+                "Menu principal.\n"   +
                 "Escoja la opcion deseada:\n"           +
                 Cgreen ( "l" ) + " - Logarse\n"         +
                 Cgreen ( "r" ) + " - Registrarse\n"     +

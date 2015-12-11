@@ -19,6 +19,10 @@ public class Moto {
     private String color;
     private String estat;
     
+    
+    public Moto () {
+        
+    }
     public Moto (String id, String matricula, String marca, String model, String color, String estat)
     {
         identificador = id;
@@ -36,5 +40,13 @@ public class Moto {
                 "Estat: " + estat + "\n";   
         return s;
                 
+    }
+    
+    public void setNoDisponible() {
+        estat = "No Disponible";
+    }
+    
+    public String getId() {
+        return identificador;
     }
 }

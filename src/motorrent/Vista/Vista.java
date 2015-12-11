@@ -30,10 +30,10 @@ public class Vista
     
     private void Logarse ()
     {
-        System.out.println("Ha entrat al menu de logarse\n" );
+        System.out.println("Ha entrat al menu de logarse" );
         System.out.println ("Introdueixi el seu nom d'usuari: ");
-        String us;
-        String ps;
+        String us = "";
+        String ps = "";
         us = scanner.nextLine();
         System.out.println("Introdueixi la seva contrasenya:");
         ps = scanner.nextLine();
@@ -72,8 +72,7 @@ public class Vista
                     break;
                 case ( "r" ):
                     demanarDades();
-                    System.out.print(controlador.ImprimirUsuaris());
-                    MenuCliente ();
+                    System.out.println("S'ha registrat correctament!");
                     break;
                 case ( "q" ):
                     loop = false;
@@ -95,16 +94,15 @@ public class Vista
             switch ( scanner.nextLine() )
             {
                 case ( "c" ):
-                    System.out.println ("Consultar reserva");
+                    System.out.println (controlador.ImprimirH());
                     break;
                 case ( "r" ):
-                    System.out.println ("Fer reserva");
                     if(controlador.hasReserva()) {
                         System.out.println("Ja té una reserva feta");
                         break;
                     }
                     else {
-                        System.out.println("Pot fer una reserva");
+                        ferReserva();
                     }
                 case ( "m" ):
                     System.out.println ("Modificar reserva");
@@ -204,10 +202,11 @@ public class Vista
             {
                 case ( "v" ):
                     System.out.println ("Mostrado el stock de motos");
+                    System.out.println(controlador.ImprimirLocalsMotos());
                     break;
                 case ( "g" ):
                     System.out.println ("Gestionado los locales");
-                    System.out.println(controlador.ImprimirLocals());
+                    
                     break;
                 case ( "s" ):
                     loop = false;
@@ -256,7 +255,42 @@ public class Vista
         }
     }
     private void ferReserva(){
-        
+        String idLD = "";
+        String idLO = "";
+        String idM = "";
+        String dR = "";
+        String dD = "";
+        String hR = "";
+        String hD = "";
+        System.out.println("Seleccioni l'identificador del local origen: ");
+        System.out.println(controlador.ImprimirLocals());
+        idLO = scanner.nextLine();
+        controlador.SeleccionarLocal(idLO);
+        System.out.println("Seleccioni l'identificador de la moto que desijta: ");
+        System.out.println(controlador.ImprimirMotos());
+        idM = scanner.nextLine();
+        controlador.SeleccionarMotoLocal(idM);
+        System.out.println("Seleccioni l'identificador del local desti: ");
+        System.out.println(controlador.ImprimirLocals());
+        idLD = scanner.nextLine();
+        controlador.SeleccionarLocal(idLD);
+        while(!controlador.checkCapacitat()) {
+            System.out.println("No hi ha espai suficient");
+            System.out.println("Seleccioni un altre local:");
+            System.out.println(controlador.ImprimirLocals());
+            idLD = scanner.nextLine();
+            controlador.SeleccionarLocal(idLD);
+        }
+        System.out.println("Escriu la data de recollida de la moto:");
+        dR = scanner.nextLine();
+        System.out.println("Escriu l'hora de recollida de la moto:");
+        hR = scanner.nextLine();
+        System.out.println("Escriu la data de devolucio de la moto:");
+        dD = scanner.nextLine();
+        System.out.println("Escriu l'hora de devolucio de la moto:");
+        hD = scanner.nextLine();
+        controlador.ferReserva(idLO, idM, idLD, dR, hR, dD, hD);
+        System.out.println(controlador.ImprimirReservaClient());
     }
     
     

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.lang.NumberFormatException;
 import motorrent.Modelo.Administrador;
 import motorrent.Modelo.Gerent;
+import motorrent.Modelo.Moto;
 
 
 
@@ -31,7 +32,8 @@ public class Motorent implements Serializable
     ArrayList lst_local;
     Local tmpL; /* El faig anar per a crear, perque en aquest afeguira les motos */
     Usuari Usuari;
-    int numR = 0;
+    Moto motoR;
+    int numR = 1;
 
     
     public Motorent (String xml)
@@ -82,6 +84,14 @@ public class Motorent implements Serializable
         
     }
     public void crearReserva(String id,String client,String moto, String cost, String falta, String local_inici,String hora_inici,String fecha_inici, String local_fi,String hora_fi,String fecha_fi) {
+        for(int i = 0; i < lst_usuari.size(); ++i) {
+            if(lst_usuari.get(i) instanceof Client) {
+                if (((Client)lst_usuari.get(i)).getId().equals(client)) {
+                    ((Client)lst_usuari.get(i)).addReservaHistorial(id, moto, ParseInt(cost), ParseInt(falta), local_inici, hora_inici, fecha_inici, local_fi, hora_fi, fecha_fi);
+                    numR++;
+                }
+            }
+        }
     }
     
     /*
@@ -111,6 +121,27 @@ public class Motorent implements Serializable
         }
         return sortida;
     }
+    public String ImprimirMotos() {
+        String i = "";
+        i += tmpL.imprimirMotos();
+        return i;
+    }
+    public String ImprimirLocalsMotos() {
+        String sortida = "";
+        int i;
+        for (i = 0; i < lst_local.size(); ++i) {
+            sortida += "Local: " + i + ".- \n";
+            sortida += (lst_local.get(i)) + "\n";
+            sortida += ((Local) lst_local.get(i)).imprimirMotos() + "\n";
+        }
+        return sortida;
+    }
+    
+    public String ImprimirReservaClient() {
+        String s = "Resum de la reserva: \n";
+        s += ((Client)Usuari).imprimirReservaActiva();
+        return s;
+    }
     
     
     public String ImprimirUsuaris() {
@@ -121,6 +152,11 @@ public class Motorent implements Serializable
             sortida += (lst_usuari.get(i)) + "\n";
         }
         return sortida;
+    }
+    public String ImprimirH() {
+        String h = "";
+        h += ((Client)Usuari).imprimirHistorial();
+        return h;
     }
     
     /**
@@ -181,9 +217,51 @@ public class Motorent implements Serializable
     }
     
     
+    /**
+     * RESERVA
+     */
+    /**
+     * En el diagrama de sequencia falta añadir que se guarda en lst_reserva del local origen y destino para
+     * despues comprovar el codigo cuando se devuelve la moto o se entrega.
+     * @param idLO
+     * @param idM
+     * @param idD
+     * @param dR
+     * @param hR
+     * @param dD
+     * @param hD 
+     */
+    public void ferReserva(String idLO, String idM, String idD, String dR, String hR, String dD, String hD){
+        String id = "r" + (numR++);
+        ((Client)Usuari).crearReserva(idLO, idM, idD, dR, hR, dD, hD, id);
+        SeleccionarLocal(idLO);
+        tmpL.addReserva(idLO, idM, idD, dR, hR, dD, hD, id);
+        SeleccionarLocal(idD);
+        tmpL.addReserva(idLO, idM, idD, dR, hR, dD, hD, id);
+    }
     
-    /*Cambiar diagrama de clases a tipo String*/
-    public void ferReserva(){
+    public void SeleccionarLocal(String idL) {
+        for(int i = 0; i < lst_local.size(); ++i) {
+            if (((Local)lst_local.get(i)).getId().equals(idL)) {
+                tmpL = (Local)lst_local.get(i);
+            }
+        }
+    }
+    
+    /**
+     * Comprovar si hi pot cabre la moto al local destí.
+     * @return 
+     */
+    public boolean checkCapacitat() {
+        boolean c = true;
+        if(tmpL.getCapacitat() < (tmpL.getNumMotos()+1)) {
+            c = false;
+        }
+        return c;
+    }
+    
+    public void SeleccionarMotoLocal(String idM) {
+        motoR = tmpL.SeleccionarMoto(idM); 
     }
     
     public boolean hasReserva() {

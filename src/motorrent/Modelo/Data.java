@@ -13,5 +13,17 @@ public class Data {
     private int Dia;
     private int Mes;
     private int Any;
+    private String Data;
+    
+    
+    public Data(String s) {
+        Data = s;
+    }
+    
+    public String toString() {
+        return Data;
+    }
     
 }
+
+

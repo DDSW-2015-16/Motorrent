@@ -48,7 +48,6 @@ public class Local {
                 "ID: " + id + "\n" +
                 "Capacitat: " + capacitat + "\n" + 
                 "Adreça: " + adreça + "\n";
-        int i;
         return s;
     }
     public String imprimirMotos() {
@@ -64,5 +63,37 @@ public class Local {
     
     public String getId() {
         return id;
+    }
+    
+    public int getNumMotos() {
+        return lst_moto.size();
+    }
+    
+    public int getCapacitat() {
+        return capacitat;
+    }
+    
+    public void addReserva(String idLO, String idM, String idD, String dR, String hR, String dD, String hD, String id) {
+        Reserva res = new Reserva();
+        res.setOrigen(idLO);
+        res.setM(idM);
+        res.setDataD(dD);
+        res.setDataR(dR);
+        res.setDesti(idD);
+        res.setHoraD(hD);
+        res.setHoraR(hR);
+        res.setId(id);
+        lst_reserva.add(res);
+    }
+    
+    public Moto SeleccionarMoto(String id) {
+        Moto tmp = null;
+        for(int i = 0; i < lst_moto.size(); ++i) {
+            if (((Moto)lst_moto.get(i)).getId().equals(id)) {
+                ((Moto)lst_moto.get(i)).setNoDisponible();
+                tmp = (Moto)lst_moto.get(i);
+            }
+        }
+        return tmp;
     }
 }

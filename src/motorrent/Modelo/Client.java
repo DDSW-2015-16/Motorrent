@@ -80,6 +80,48 @@ public class Client extends Usuari
     public Reserva getReserva() {
         return res;
     }
+    public void crearReserva(String idLO, String idM, String idD, String dR, String hR, String dD, String hD, String id) {
+        res = new Reserva();
+        res.setOrigen(idLO);
+        res.setM(idM);
+        res.setDataD(dD);
+        res.setDataR(dR);
+        res.setDesti(idD);
+        res.setHoraD(hD);
+        res.setHoraR(hR);
+        res.setId(id);
+        
+    }
+    public void addReservaHistorial(String id,String moto, int cost, int falta, String local_inici,String hora_inici,String fecha_inici, String local_fi,String hora_fi,String fecha_fi) {
+        Reserva r = new Reserva();
+        r.setCost(cost);
+        r.setDataD(fecha_fi);
+        r.setHoraD(hora_fi);
+        r.setDesti(local_fi);
+        r.setId(id);
+        r.setOrigen(local_inici);
+        r.setDataR(fecha_inici);
+        r.setHoraR(hora_inici);
+        r.setM(moto);
+        r.setFalta(falta);
+        historial.add(r);
+        faltes += falta;
+  
+    }
+    public String imprimirHistorial() {
+        String h = "";
+        for(int i = 0; i < historial.size(); ++i) {
+            h += historial.get(i) + "\n";
+        }  
+        return h;
+    }
+    
+    public String imprimirReservaActiva() {
+        String s = "";
+        s += res;
+        return s;
+    }
+
 
    
 }

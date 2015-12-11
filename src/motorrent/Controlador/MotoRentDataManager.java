@@ -85,6 +85,7 @@ public class MotoRentDataManager {
 
 		/* TODO: A partir d'aqui creeu el trajecte
 		 */
+            motorent.crearReserva(id, client, moto, cost, falta, local_inici, hora_inici, fecha_inici, local_fi, hora_fi, fecha_fi);
 
 	}
 
