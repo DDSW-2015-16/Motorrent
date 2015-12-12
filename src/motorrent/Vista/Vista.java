@@ -6,6 +6,7 @@
 package motorrent.Vista;
 
 /* Paquets propis */
+import java.util.Date;
 import motorrent.Controlador.Motorent;
 
 /* Paquets de java */
@@ -30,20 +31,20 @@ public class Vista
     
     private void Logarse ()
     {
-        System.out.println("Ha entrat al menu de logarse" );
-        System.out.println ("Introdueixi el seu nom d'usuari: ");
+        escriu("Ha entrat al menu de logarse" );
+        escriu ("Introdueixi el seu nom d'usuari: ");
         String us = "";
         String ps = "";
-        us = scanner.nextLine();
-        System.out.println("Introdueixi la seva contrasenya:");
-        ps = scanner.nextLine();
+        us = llegeixString();
+        escriu("Introdueixi la seva contrasenya:");
+        ps = llegeixString();
         if(controlador.checkUser(us, ps)) {
             switch(controlador.typeUser()) {
                 case ("c"):
                     MenuCliente();
                     break;
                 case ("e"):
-                    System.out.println("Acces denegat. Vosté té 3 o més faltes acumulades.");
+                    escriu("Acces denegat. Vosté té 3 o més faltes acumulades.");
                 case ("g"):
                     MenuGerente();
                     break;
@@ -53,7 +54,7 @@ public class Vista
             }
         }
         else {
-            System.out.println("Usuari o contrasenya incorrecta, torna a provar-ho");
+            escriu("Usuari o contrasenya incorrecta, torna a provar-ho");
             MenuNoIdentificado();
         }
     }
@@ -61,25 +62,25 @@ public class Vista
     public void MenuNoIdentificado ()
     {
         boolean loop = true;
-        System.out.println ( strings.getPresentacio() );
+        escriu ( strings.getPresentacio() );
         while (loop)
         {
-            System.out.println ( strings.getNoClient() );
-            switch ( scanner.nextLine() )
+            escriu ( strings.getNoClient() );
+            switch ( llegeixString() )
             {
                 case ( "l" ):
                     Logarse ();
                     break;
                 case ( "r" ):
                     demanarDades();
-                    System.out.println("S'ha registrat correctament!");
+                    escriu("S'ha registrat correctament!");
                     break;
                 case ( "q" ):
                     loop = false;
-                    System.out.println ( strings.getExit() );
+                    escriu( strings.getExit() );
                     break;
                 default:
-                    System.out.println ( strings.getErrorMenu() );
+                    escriu ( strings.getErrorMenu() );
             }
         }
     }
@@ -90,34 +91,34 @@ public class Vista
         boolean loop = true;
         while (loop)
         {
-            System.out.println ( strings.getClient() );
-            switch ( scanner.nextLine() )
+            escriu ( strings.getClient() );
+            switch ( llegeixString() )
             {
                 case ( "c" ):
-                    System.out.println (controlador.ImprimirH());
+                    escriu (controlador.ImprimirH());
                     break;
                 case ( "r" ):
                     if(controlador.hasReserva()) {
-                        System.out.println("Ja té una reserva feta");
+                        escriu("Ja té una reserva feta");
                         break;
                     }
                     else {
                         ferReserva();
                     }
                 case ( "m" ):
-                    System.out.println ("Modificar reserva");
+                    escriu ("Modificar reserva");
                     break;
                 case ( "f" ):
-                    System.out.println ("Consultar faltes");
+                    escriu("Consultar faltes");
                     break;
                 case ("d"):
-                    System.out.println("Consultar dades");
+                    escriu("Consultar dades");
                     break;
                 case ( "s" ):
                     loop = false;
                     break;
                 default:
-                    System.out.println ( strings.getErrorMenu() );
+                    escriu ( strings.getErrorMenu() );
             }
         }
         
@@ -167,26 +168,26 @@ public class Vista
         boolean loop = true;
         while (loop)
         {
-            System.out.println ( strings.getGerent() );
-            switch ( scanner.nextLine() )
+            escriu ( strings.getGerent() );
+            switch ( llegeixString() )
             {
                 case ( "m" ):
-                    System.out.println ("Registrada la moto");
+                    escriu ("Registrada la moto");
                     break;
                 case ( "g" ):
-                    System.out.println ("Gestionat el local");
+                    escriu ("Gestionat el local");
                     break;
                 case ( "r" ):
-                    System.out.println ("Comprovat la reserva");
+                    escriu ("Comprovat la reserva");
                     break;
                 case ( "c" ):
-                    System.out.println ("Comprovat l'estoc de les motos");
+                    escriu ("Comprovat l'estoc de les motos");
                     break;
                 case ( "s" ):
                     loop = false;
                     break;
                 default:
-                    System.out.println ( strings.getErrorMenu() );
+                    escriu ( strings.getErrorMenu() );
             }
         }
     }
@@ -197,22 +198,21 @@ public class Vista
         boolean loop = true;
         while (loop)
         {
-            System.out.println (strings.getJefe());
-            switch (scanner.nextLine())
+            escriu (strings.getJefe());
+            switch (llegeixString())
             {
                 case ( "v" ):
-                    System.out.println ("Mostrado el stock de motos");
-                    System.out.println(controlador.ImprimirLocalsMotos());
+                    escriu ("Mostrar el stock de motos");
+                    escriu(controlador.ImprimirLocalsMotos());
                     break;
                 case ( "g" ):
-                    System.out.println ("Gestionado los locales");
-                    
+                    escriu ("Gestionado los locales");
                     break;
                 case ( "s" ):
                     loop = false;
                     break;
                 default:
-                    System.out.println ( strings.getErrorMenu() );
+                    escriu ( strings.getErrorMenu() );
             }
         }
     }
@@ -225,33 +225,33 @@ public class Vista
         String a = "";
         String n = "";
         String opcio = "";
-        System.out.println(
+        escriu(
                 "Seleccioni una opció: \n " +
                 "a - Registrar-se com a Administrador \n "+
                 "b - Registrar-se com a Gerent \n"+
                 "c - Registrar-se com a Client"
         );
-        opcio = scanner.nextLine();
-        System.out.println("Introdueixi el nom d'usuari que desitji :");
-        while(controlador.existeixUsuari(u = scanner.nextLine())) {
-             System.out.println("L'usuari ja existeix, torna a introduir un altre nom d'usuari.");
+        opcio = llegeixString();
+        escriu("Introdueixi el nom d'usuari que desitji :");
+        while(controlador.existeixUsuari(u = llegeixString())) {
+             escriu("L'usuari ja existeix, torna a introduir un altre nom d'usuari.");
         }
-        System.out.println("Introdueix la contrasenya: ");
-        p = scanner.nextLine();
-        System.out.println("Introdueix el nom i cognoms: ");
-        n = scanner.nextLine();
-        if(opcio.equals("a")) {
-            
-        }
-        if(opcio.equals("b")) {
-            
-        }
-        if(opcio.equals("c")) {
-            System.out.println("Introdueix el seu DNI: ");
-            d = scanner.nextLine();
-            System.out.println("Introdueix la seva adreça ");
-            a = scanner.nextLine();
-            controlador.registreClient(u, p, n, d, a);
+        escriu("Introdueix la contrasenya: ");
+        p = llegeixString();
+        escriu("Introdueix el nom i cognoms: ");
+        n = llegeixString();
+        switch(opcio) {
+            case ("a"):
+                break;
+            case ("b"):
+                break;
+            case("c"): 
+                escriu("Introdueix el seu DNI: ");
+                d = llegeixString();
+                escriu("Introdueix la seva adreça ");
+                a = llegeixString();
+                controlador.registreClient(u, p, n, d, a);
+                break;
         }
     }
     private void ferReserva(){
@@ -262,41 +262,67 @@ public class Vista
         String dD = "";
         String hR = "";
         String hD = "";
-        System.out.println("Seleccioni l'identificador del local origen: ");
-        System.out.println(controlador.ImprimirLocals());
-        idLO = scanner.nextLine();
+        escriu("Seleccioni l'identificador del local origen: ");
+        escriu(controlador.ImprimirLocals());
+        idLO = llegeixString();
         controlador.SeleccionarLocal(idLO);
-        System.out.println("Seleccioni l'identificador de la moto que desijta: ");
-        System.out.println(controlador.ImprimirMotos());
-        idM = scanner.nextLine();
+        escriu("Seleccioni l'identificador de la moto que desijta: ");
+        escriu(controlador.ImprimirMotos());
+        idM = llegeixString();
         controlador.SeleccionarMotoLocal(idM);
-        System.out.println("Seleccioni l'identificador del local desti: ");
-        System.out.println(controlador.ImprimirLocals());
-        idLD = scanner.nextLine();
+        escriu("Seleccioni l'identificador del local desti: ");
+        escriu(controlador.ImprimirLocals());
+        idLD = llegeixString();
         controlador.SeleccionarLocal(idLD);
         while(!controlador.checkCapacitat()) {
-            System.out.println("No hi ha espai suficient");
-            System.out.println("Seleccioni un altre local:");
-            System.out.println(controlador.ImprimirLocals());
-            idLD = scanner.nextLine();
+            escriu("No hi ha espai suficient");
+            escriu("Seleccioni un altre local:");
+            escriu(controlador.ImprimirLocals());
+            idLD = llegeixString();
             controlador.SeleccionarLocal(idLD);
         }
-        System.out.println("Escriu la data de recollida de la moto:");
-        dR = scanner.nextLine();
-        System.out.println("Escriu l'hora de recollida de la moto:");
-        hR = scanner.nextLine();
-        System.out.println("Escriu la data de devolucio de la moto:");
-        dD = scanner.nextLine();
-        System.out.println("Escriu l'hora de devolucio de la moto:");
-        hD = scanner.nextLine();
+        escriu("Escriu la data de recollida de la moto:");
+        dR = llegeixString();
+        escriu("Escriu l'hora de recollida de la moto:");
+        hR = llegeixString();
+        escriu("Escriu la data de devolucio de la moto:");
+        dD = llegeixString();
+        escriu("Escriu l'hora de devolucio de la moto:");
+        hD = llegeixString();
         controlador.ferReserva(idLO, idM, idLD, dR, hR, dD, hD);
-        System.out.println(controlador.ImprimirReservaClient());
+        escriu(controlador.ImprimirReservaClient());
     }
     
+    /**
+     * ESCRIU I LLEGIR
+     *  
+     */
     
     public void escriu(String s){
          System.out.println(s);
-     }
+    }
+    
+    public void escriu(int i) {
+        System.out.println(i);
+    }
+    
+    public void escriu(float f) {
+        System.out.println(f);
+    }
+    
+    public void escriu(Date d) {
+        System.out.println(d);
+    }
+    
+    public int llegeixInt() {
+        return scanner.nextInt();
+    }
+    
+    public String llegeixString() {
+        return scanner.nextLine();
+    }
+    
+    
 
    
     
