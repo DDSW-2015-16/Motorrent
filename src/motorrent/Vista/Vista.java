@@ -123,45 +123,7 @@ public class Vista
         }
         
     }
-    /* Entran los usuarios que han echo una reserva */
-    private boolean MenuClientYesReserva ()
-    {
-        System.out.println (strings.getClienteConReserva());
-        switch ( scanner.nextLine() )
-        {
-            case ( "m" ):
-                System.out.println ( "Ha modificat exitosament la reserva" );
-                break;
-            case ( "b" ):
-                System.out.println ( "Fins aviat, aqui se donara de baixa" );
-                return false;
-            case ( "s" ):
-                return false;
-            default:
-                System.out.println ( strings.getErrorMenu() );
-        }
-        return true;
-    }
-    /* Entran los usuarios que han echo una reserva */
-    private boolean MenuClientNoReserva ()
-    {
-        System.out.println ( strings.getClienteSinReserva() );
-        switch ( scanner.nextLine() )
-        {
-            case ( "r" ):
-                System.out.println ( "S'ha registrat correctament!" );
-                break;
-            case ( "b" ):
-                System.out.println ( "Fins aviat, aqui se donara de baixa" );
-                return false;
-            case ( "s" ):
-                return false;
-            default:
-                System.out.println ( strings.getErrorMenu() );
-        }
-        return true;
-    }
-    
+
     /************* GERENTE ********************* GERENTE ******************************************/
     private void MenuGerente ()
     {

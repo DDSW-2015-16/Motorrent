@@ -259,11 +259,11 @@ public class Motorent implements Serializable
         }
         return c;
     }
-    
+    /* AÑADIR AL DIAGRAMA DE CLASES*/
     public void SeleccionarMotoLocal(String idM) {
         motoR = tmpL.SeleccionarMoto(idM); 
     }
-    
+    /*AÑADIR AL DIAGRAMA DE CLASES*/
     public boolean hasReserva() {
         boolean res = false;
         if(((Client)Usuari).hasReserva() == false) {
@@ -275,6 +275,8 @@ public class Motorent implements Serializable
         return res;
     }
 
+    public void generarInforme(){
+        
+    }
 }
-
 
