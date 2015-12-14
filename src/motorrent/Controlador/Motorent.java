@@ -9,13 +9,16 @@ package motorrent.Controlador;
 import motorrent.Modelo.Client;
 import motorrent.Modelo.Local;
 import motorrent.Modelo.Usuari;
+import motorrent.Modelo.Administrador;
+import motorrent.Modelo.Gerent;
+import motorrent.Modelo.EspecificacioMoto;
 
 /* Paquets de java */
 import java.io.Serializable; /* Per poder guardar els canvis */
 import java.util.ArrayList;
 import java.lang.NumberFormatException;
-import motorrent.Modelo.Administrador;
-import motorrent.Modelo.Gerent;
+
+/* Aquest en concret si se pot treure millor */
 import motorrent.Modelo.Moto;
 
 
@@ -30,17 +33,18 @@ public class Motorent implements Serializable
     /* Elements temporals pel funcionament */
     ArrayList lst_usuari;
     ArrayList lst_local;
+    ArrayList lst_especificacio_moto;
     Local tmpL; /* El faig anar per a crear, perque en aquest afeguira les motos */
     Usuari Usuari;
-    Moto motoR;
-    int numR = 1;
-
+    Moto motoR; /* s'ha de treure */
+    int numeroReserves = 1;
     
     public Motorent (String xml)
     {
         /* Normalment aquest no es necessari, pero ara no tinc llistes... */
         lst_usuari = new ArrayList<Usuari> ();
         lst_local = new ArrayList<Local> ();
+        lst_especificacio_moto = new ArrayList<EspecificacioMoto> ();
         
         MotoRentDataManager d = new MotoRentDataManager();
         d.obtenirDades (this, xml);
@@ -65,7 +69,14 @@ public class Motorent implements Serializable
     
     public void crearMoto(String id, String matricula, String marca, String model, String color, String estat)
     {
-        tmpL.crearMoto (id, matricula, marca, model, color, estat);
+        int i;
+        EspecificacioMoto em = null;
+        for (i = 0; (i < lst_especificacio_moto.size()) && (em == null); i++)
+            if (((EspecificacioMoto) lst_especificacio_moto.get(i)).esIgual (marca, model))
+                em = (EspecificacioMoto) lst_especificacio_moto.get(i);
+        if ( em == null )
+            em = new EspecificacioMoto (marca, model);
+        tmpL.crearMoto (id, matricula, em, color, estat);
     }
     
     public void crearClient(String id, String nom, String dni, String adreca, String usuari, String password, String vip, String renovacio, String faltes) {
@@ -88,7 +99,7 @@ public class Motorent implements Serializable
             if(lst_usuari.get(i) instanceof Client) {
                 if (((Client)lst_usuari.get(i)).getId().equals(client)) {
                     ((Client)lst_usuari.get(i)).addReservaHistorial(id, moto, ParseInt(cost), ParseInt(falta), local_inici, hora_inici, fecha_inici, local_fi, hora_fi, fecha_fi);
-                    numR++;
+                    numeroReserves++;
                 }
             }
         }
@@ -232,7 +243,7 @@ public class Motorent implements Serializable
      * @param hD 
      */
     public void ferReserva(String idLO, String idM, String idD, String dR, String hR, String dD, String hD){
-        String id = "r" + (numR++);
+        String id = "r" + (numeroReserves++);
         ((Client)Usuari).crearReserva(idLO, idM, idD, dR, hR, dD, hD, id);
         SeleccionarLocal(idLO);
         tmpL.addReserva(idLO, idM, idD, dR, hR, dD, hD, id);
@@ -264,16 +275,8 @@ public class Motorent implements Serializable
         motoR = tmpL.SeleccionarMoto(idM); 
     }
     
-    public boolean hasReserva() {
-        boolean res = false;
-        if(((Client)Usuari).hasReserva() == false) {
-            res = false;
-        }
-        else {
-            res = true;
-        }
-        return res;
-    }
+    public boolean hasReserva()
+    { return ((Client)Usuari).hasReserva(); }
 
 }
 

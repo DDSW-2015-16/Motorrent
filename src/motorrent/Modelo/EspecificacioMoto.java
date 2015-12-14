@@ -10,6 +10,19 @@ package motorrent.Modelo;
  * @author Marc
  */
 public class EspecificacioMoto {
-    private String Marca;
-    private String Model;
+    private String marca;
+    private String model;
+    
+    public EspecificacioMoto (String marcaExtern, String modelExtern)
+            {
+                marca = marcaExtern;
+                model = modelExtern;
+            }
+    
+    public boolean esIgual (String marcaExtern, String modelExtern)
+    { return marca.equals(marcaExtern) && model.equals(modelExtern); }
+    
+    @Override
+    public String toString ()
+    { return "marca: " + marca + "\nmodel: "+ model + "\n"; }
 }

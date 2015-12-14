@@ -35,9 +35,9 @@ public class Local {
      * @param color
      * @param estat 
      */
-    public void crearMoto(String id, String matricula, String marca, String model, String color, String estat)
+    public void crearMoto(String id, String matricula, Object especificacioMoto, String color, String estat)
     {
-        Moto m = new Moto (id, matricula, marca, model, color, estat);
+        Moto m = new Moto (id, matricula, especificacioMoto, color, estat);
         lst_moto.add(m);
     }
     

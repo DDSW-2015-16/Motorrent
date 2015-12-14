@@ -262,7 +262,7 @@ public class Vista
         String dD = "";
         String hR = "";
         String hD = "";
-        escriu("Seleccioni l'identificador del local origen: ");
+        escriu("Seleccioni l'identificador (ID) del local origen: ");
         escriu(controlador.ImprimirLocals());
         idLO = llegeixString();
         controlador.SeleccionarLocal(idLO);
@@ -270,7 +270,7 @@ public class Vista
         escriu(controlador.ImprimirMotos());
         idM = llegeixString();
         controlador.SeleccionarMotoLocal(idM);
-        escriu("Seleccioni l'identificador del local desti: ");
+        escriu("Seleccioni l'identificador (ID) del local desti: ");
         escriu(controlador.ImprimirLocals());
         idLD = llegeixString();
         controlador.SeleccionarLocal(idLD);

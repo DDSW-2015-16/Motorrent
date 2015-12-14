@@ -23,12 +23,13 @@ public class Moto {
     public Moto () {
         
     }
-    public Moto (String id, String matricula, String marca, String model, String color, String estat)
+    public Moto (String id, String matricula, Object especificacioMoto, String color, String estat)
     {
         identificador = id;
         this.matricula = matricula;
         this.color = color;
         this.estat = estat;
+        esp = (EspecificacioMoto) especificacioMoto;
     }
     
     @Override
@@ -37,6 +38,7 @@ public class Moto {
         s += "Identificador: " + identificador + "\n" +
                 "Matricula: " + matricula + "\n" +
                 "Color: " + color + "\n" +
+                esp +
                 "Estat: " + estat + "\n";   
         return s;
                 
