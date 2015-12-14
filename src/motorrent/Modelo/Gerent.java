@@ -27,4 +27,10 @@ public class Gerent extends Usuari{
                 "Nom: " + nom + "\n";
         return s;
     }
+    
+    public void setLocal (Local l)
+    { local = l; }
+    
+    public boolean isID (String e)
+    { return Identificador.equals(e); }
 }

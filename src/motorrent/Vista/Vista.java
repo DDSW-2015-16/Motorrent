@@ -31,6 +31,8 @@ public class Vista
     
     private void Logarse ()
     {
+        escriu(controlador.ImprimirUsuaris());
+        
         escriu("Ha entrat al menu de logarse" );
         escriu ("Introdueixi el seu nom d'usuari: ");
         String us = "";
