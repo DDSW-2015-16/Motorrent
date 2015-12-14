@@ -24,13 +24,14 @@ public class Gerent extends Usuari{
         String s = "";
         s += "Gerent: \n" +
                 "Identificador: " + Identificador + "\n" +
-                "Nom: " + nom + "\n";
+                "Nom: " + nom + "\n" +
+                "Local" + local + "\n";
         return s;
     }
     
     public void setLocal (Local l)
     { local = l; }
     
-    public boolean isID (String e)
-    { return Identificador.equals(e); }
+    public String  getID ()
+    { return Identificador; }
 }

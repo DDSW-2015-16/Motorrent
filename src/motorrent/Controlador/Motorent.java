@@ -62,28 +62,15 @@ public class Motorent implements Serializable
      */
     public void crearLocal(String id, String capacitat, String gestorID, String adreca)
     {
-        Gerent ge;
-        Usuari g;
-        int i;
         
         /* Aqui fer un programa per a controlar el gestorID */
         tmpL = new Local (id, ParseInt (capacitat), adreca);
-        
-        /* Afegir el local al gerent */
-        ge = null;
-        g = null;
-        for (i = 0; (i < lst_usuari.size()) && (ge == null); i++)
-            g = (Usuari)lst_usuari.get(i);
-            if (g instanceof Gerent)
-            {
-                if (((Gerent)g).isID(gestorID))
-                    ge = (Gerent)g;
+        for(int i = 0; i < lst_usuari.size(); ++i) {
+            if(lst_usuari.get(i) instanceof Gerent) {
+                if(((Gerent)lst_usuari.get(i)).getID().equals(gestorID)) {
+                    ((Gerent)lst_usuari.get(i)).setLocal(tmpL);
+                }
             }
-        if (ge == null)
-            System.out.println ("Error");
-        else
-        {
-            ge.setLocal(tmpL);
         }
         lst_local.add(tmpL);
     }
@@ -181,14 +168,6 @@ public class Motorent implements Serializable
         int i;
         for(i = 0; i < lst_usuari.size(); ++i) {
             sortida += i + ".- \n";
-            if (lst_usuari.get(i) instanceof Gerent)
-                sortida += "D: Gerent\n";
-            else if (lst_usuari.get(i) instanceof Client)
-                sortida += "D: Client\n";
-            else if (lst_usuari.get(i) instanceof Administrador)
-                sortida += "D: Administrador\n";
-            else
-                sortida += "D: Error\n";
             sortida += (lst_usuari.get(i)) + "\n";
         }
         return sortida;
