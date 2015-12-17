@@ -135,7 +135,8 @@ public class Motorent implements Serializable
         String sortida = "";
         int i;
         for (i = 0; i < lst_local.size(); ++i) {
-            sortida += "Local: " + i + ".- \n";
+            sortida += "Local: " + i + ".- \n" +
+                "----------------- \n";
             sortida += (lst_local.get(i)) + "\n";
         }
         return sortida;
@@ -149,7 +150,8 @@ public class Motorent implements Serializable
         String sortida = "";
         int i;
         for (i = 0; i < lst_local.size(); ++i) {
-            sortida += "Local: " + i + ".- \n";
+            sortida += "Local: " + i + ".- \n"+
+                "----------------- \n";
             sortida += (lst_local.get(i)) + "\n";
             sortida += ((Local) lst_local.get(i)).imprimirMotos() + "\n";
         }
@@ -157,7 +159,8 @@ public class Motorent implements Serializable
     }
     
     public String ImprimirReservaClient() {
-        String s = "Resum de la reserva: \n";
+        String s = "Resum de la reserva: \n" +
+                "----------------- \n";
         s += ((Client)Usuari).imprimirReservaActiva();
         return s;
     }

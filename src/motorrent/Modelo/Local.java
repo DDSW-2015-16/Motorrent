@@ -53,7 +53,8 @@ public class Local {
     public String imprimirMotos() {
         String s = "";
         int i;
-        s += "\nMotos del local: \n";
+        s += "\nMotos del local: \n" +
+                "--------------- \n";
         for(i = 0; i < lst_moto.size(); ++i) {
             s += i + ".- \n";
             s+= lst_moto.get(i) + "\n";
