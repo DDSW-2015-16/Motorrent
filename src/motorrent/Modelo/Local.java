@@ -96,4 +96,19 @@ public class Local {
         }
         return tmp;
     }
+
+    public void comprovarCodi(String codi) {
+        Reserva res = null;
+        Boolean trobat = false;
+        for (int i = 0; i < lst_reserva.size() && !trobat; ++i){
+            if((lst_reserva.get(i)).comprovarCodi(codi)){
+                res = lst_reserva.get(i);
+                trobat = true;
+                
+            }
+        }
+        if (res != null){
+            lst_moto.remove(res.getMoto());
+        }
+    }
 }

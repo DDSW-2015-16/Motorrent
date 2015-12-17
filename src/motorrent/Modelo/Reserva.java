@@ -87,6 +87,19 @@ public class Reserva {
                 "falta: " + falta + "\n";
         return s;
     }
+
+    boolean comprovarCodi(String codi) {
+        if(codi == id) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public Moto getMoto() {
+        return moto;
+    }
     
 }
     
