@@ -34,4 +34,8 @@ public class Gerent extends Usuari{
     
     public String  getID ()
     { return Identificador; }
+
+    public Local getLocal() {
+        return local;
+    }
 }

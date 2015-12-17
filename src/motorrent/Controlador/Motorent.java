@@ -289,5 +289,9 @@ public class Motorent implements Serializable
     public void generarInforme(){
         
     }
+
+    public void entregarMoto(String codi) {
+        tmpL = ((Gerent)Usuari).getLocal();
+    }
 }
 

@@ -136,7 +136,8 @@ public class Vista
             switch ( llegeixString() )
             {
                 case ( "m" ):
-                    escriu ("Registrada la moto");
+                    escriu ("Entregar moto");
+                    entregarMoto();
                     break;
                 case ( "g" ):
                     escriu ("Gestionat el local");
@@ -284,6 +285,14 @@ public class Vista
     
     public String llegeixString() {
         return scanner.nextLine();
+    }
+    
+    private void entregarMoto() {
+        escriu("Entra el codi de la reserva");
+        String codi;
+        codi = llegeixString();
+        //Comprovar codigo correcto
+        controlador.entregarMoto(codi);
     }
     
     
