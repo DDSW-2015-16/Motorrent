@@ -31,7 +31,6 @@ public class Vista
     
     private void Logarse ()
     {
-        escriu(controlador.ImprimirUsuaris());
         
         escriu("Ha entrat al menu de logarse" );
         escriu ("Introdueixi el seu nom d'usuari: ");
@@ -106,6 +105,7 @@ public class Vista
                     }
                     else {
                         ferReserva();
+                        break;
                     }
                 case ( "m" ):
                     escriu ("Modificar reserva");
@@ -136,7 +136,6 @@ public class Vista
             switch ( llegeixString() )
             {
                 case ( "m" ):
-                    escriu ("Entregar moto");
                     entregarMoto();
                     break;
                 case ( "g" ):
@@ -231,7 +230,7 @@ public class Vista
         escriu(controlador.ImprimirLocals());
         idLO = llegeixString();
         controlador.SeleccionarLocal(idLO);
-        escriu("Seleccioni l'identificador de la moto que desijta: ");
+        escriu("Seleccioni l'identificador(ID) de la moto que desijta: ");
         escriu(controlador.ImprimirMotos());
         idM = llegeixString();
         controlador.SeleccionarMotoLocal(idM);
@@ -246,13 +245,13 @@ public class Vista
             idLD = llegeixString();
             controlador.SeleccionarLocal(idLD);
         }
-        escriu("Escriu la data de recollida de la moto:");
+        escriu("Escriu la data de recollida de la moto(DD/MM/AAAA):");
         dR = llegeixString();
-        escriu("Escriu l'hora de recollida de la moto:");
+        escriu("Escriu l'hora de recollida de la moto(HH/MM/SS):");
         hR = llegeixString();
-        escriu("Escriu la data de devolucio de la moto:");
+        escriu("Escriu la data de devolucio de la moto(DD/MM/AAAA):");
         dD = llegeixString();
-        escriu("Escriu l'hora de devolucio de la moto:");
+        escriu("Escriu l'hora de devolucio de la moto(HH/MM/SS):");
         hD = llegeixString();
         controlador.ferReserva(idLO, idM, idLD, dR, hR, dD, hD);
         escriu(controlador.ImprimirReservaClient());
@@ -292,7 +291,12 @@ public class Vista
         String codi;
         codi = llegeixString();
         //Comprovar codigo correcto
-        controlador.entregarMoto(codi);
+        if(controlador.entregarMoto(codi)) {
+            escriu("Entrega feta correctament");
+        }
+        else {
+            escriu("Codi de la resera incorrecta");
+        }
     }
     
     

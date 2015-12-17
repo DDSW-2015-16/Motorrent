@@ -290,9 +290,14 @@ public class Motorent implements Serializable
         
     }
 
-    public void entregarMoto(String codi) {
+    public boolean entregarMoto(String codi) {
         tmpL = ((Gerent)Usuari).getLocal();
-        tmpL.comprovarCodi(codi);
+        if(tmpL.comprovarCodi(codi)) {
+            return true;
+        }
+        else {
+           return false;
+        }
     }
 }
 

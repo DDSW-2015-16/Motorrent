@@ -24,9 +24,6 @@ class LlistaOpcions
     private final String Client;
     
     private final String noClient;
-        /* usuarios */
-    private final String clientYreserva;
-    private final String clientNreserva;
         /* gerente */
     private final String gerentFirstMenu;
         /* jefe */
@@ -61,31 +58,17 @@ class LlistaOpcions
                 Cgreen ( "f" ) + " - Consultar numero de faltes \n"     +
                 Cgreen ( "d" ) + " - Consultar dades personals \n"    +
                 Cgreen ( "s" ) + " - Salir";
-        
         noClient =
                 "Menu principal.\n"   +
                 "Escoja la opcion deseada:\n"           +
                 Cgreen ( "l" ) + " - Logarse\n"         +
                 Cgreen ( "r" ) + " - Registrarse\n"     +
                 Cgreen ( "q" ) + " - Salir";
-                /* users */
-        clientNreserva =
-                "Estas logeado.\n"                      +
-                "Escoja la opcion deseada:\n"           +
-                Cgreen ( "r" ) + " - Hacer reserva\n"   +
-                Cgreen ( "b" ) + " - Darse de baja\n"   +
-                Cgreen ( "s" ) + " - Salir";
-        clientYreserva =
-                "Estas logeado.\n"                              +
-                "Escoja la opcion deseada:\n"                   +
-                Cgreen ( "m" ) + " - Modificar local destino\n" +
-                Cgreen ( "b" ) + " - Darse de baja\n"           +
-                Cgreen ( "s" ) + " - Salir";
                 /* gerent */
         gerentFirstMenu =
                 "Eres gerente.\n"                                   +
                 "Escoja la opcion deseada:\n"                       +
-                Cgreen ( "m" ) + " - Registrar moto\n"              +
+                Cgreen ( "m" ) + " - Entregar moto\n"              +
                 Cgreen ( "g" ) + " - Gestionar local\n"             +
                 Cgreen ( "r" ) + " - Comprovar reserva\n"           +
                 Cgreen ( "c" ) + " - Comprovar stock de motos\n"    +
@@ -123,18 +106,6 @@ class LlistaOpcions
      * @return String de las opciones que tiene
      */
     public String getNoClient () {return noClient;}
-/* user */
-    /**
-     * Menu para los usuarios logados que actualmente no tienen reserva
-     * @return String de las opciones que tiene.
-     */
-    public String getClienteSinReserva () {return clientNreserva; }
-
-    /**
-     * Menu para los usuarios logados que estan sin finalizar su reserva
-     * @return String de las opciones que tiene.
-     */
-    public String getClienteConReserva () {return clientYreserva; }
 
 /* gerente */
     /**

@@ -53,6 +53,10 @@ public class Reserva {
     public void setM(String m) {
         this.m = m;
     }
+    
+    public String getM() {
+        return m;
+    }
 
     public void setCost(int cost) {
         this.cost = cost;

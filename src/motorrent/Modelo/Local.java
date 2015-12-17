@@ -97,18 +97,28 @@ public class Local {
         return tmp;
     }
 
-    public void comprovarCodi(String codi) {
+    public boolean comprovarCodi(String codi) {
         Reserva res = null;
         Boolean trobat = false;
         for (int i = 0; i < lst_reserva.size() && !trobat; ++i){
-            if((lst_reserva.get(i)).comprovarCodi(codi)){
+            if(((lst_reserva.get(i)).getId()).equals(codi)) {
                 res = lst_reserva.get(i);
                 trobat = true;
-                
             }
         }
-        if (res != null){
-            lst_moto.remove(res.getMoto());
+        if(res != null) {
+            String idM = res.getM();
+            Moto m = null;
+            for(int i = 0; i < lst_moto.size(); ++i) {
+                if(((lst_moto.get(i)).getId()).equals(idM)) {
+                    m = lst_moto.get(i);
+                }
+            }
+            lst_moto.remove(m);
+            return true;
+        }
+        else {
+            return false;
         }
     }
 }
