@@ -6,6 +6,8 @@
 package motorrent.Vista;
 
 /* Paquets propis */
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import motorrent.Controlador.Motorent;
 
@@ -29,37 +31,7 @@ public class Vista
         controlador = new Motorent ("data/MotoRent.xml");
     }
     
-    private void Logarse ()
-    {
-        
-        escriu("Ha entrat al menu de logarse" );
-        escriu ("Introdueixi el seu nom d'usuari: ");
-        String us = "";
-        String ps = "";
-        us = llegeixString();
-        escriu("Introdueixi la seva contrasenya:");
-        ps = llegeixString();
-        if(controlador.checkUser(us, ps)) {
-            switch(controlador.typeUser()) {
-                case ("c"):
-                    MenuCliente();
-                    break;
-                case ("e"):
-                    escriu("Acces denegat. Vosté té 3 o més faltes acumulades.");
-                case ("g"):
-                    MenuGerente();
-                    break;
-                case ("a"):
-                    MenuJefe();
-                    break;
-            }
-        }
-        else {
-            escriu("Usuari o contrasenya incorrecta, torna a provar-ho");
-            MenuNoIdentificado();
-        }
-    }
-    
+     /*************** MENU PRINCIPAL **************/
     public void MenuNoIdentificado ()
     {
         boolean loop = true;
@@ -86,7 +58,40 @@ public class Vista
         }
     }
     
-    /***************          USUARIOS          ********************            USUARIOS      ***************************************/
+    /*********** MENU LOGIN ************/
+    private void Logarse ()
+    {
+        
+        escriu("Ha entrat al menu de logarse" );
+        escriu ("Introdueixi el seu nom d'usuari: ");
+        String us = "";
+        String ps = "";
+        us = llegeixString();
+        escriu("Introdueixi la seva contrasenya:");
+        ps = llegeixString();
+        if(controlador.checkUser(us, ps)) {
+            switch(controlador.typeUser()) {
+                case ("c"):
+                    MenuCliente();
+                    break;
+                case ("e"):
+                    escriu("Acces denegat. Vosté té 3 o més faltes acumulades.");
+                case ("g"):
+                    MenuGerente();
+                    break;
+                case ("a"):
+                    MenuAdministrador();
+                    break;
+            }
+        }
+        else {
+            escriu("Usuari o contrasenya incorrecta, torna a provar-ho");
+            MenuNoIdentificado();
+        }
+    }
+   
+    
+    /*************** MENU USUARIS  ***********/
     private void MenuCliente ()
     { /* No hay ningun printf, ja que los hacen los submenus corresponientes */
         boolean loop = true;
@@ -126,7 +131,7 @@ public class Vista
         
     }
 
-    /************* GERENTE ********************* GERENTE ******************************************/
+    /************* MENU GERENT ********/
     private void MenuGerente ()
     {
         boolean loop = true;
@@ -156,17 +161,16 @@ public class Vista
         }
     }
     
-    /********** JEFE ************ JEFE ************ JEFE **********/
-    private void MenuJefe ()
+    /********** MENU ADMINISTRADOR **********/
+    private void MenuAdministrador ()
     {
         boolean loop = true;
         while (loop)
         {
-            escriu (strings.getJefe());
+            escriu (strings.getAdmin());
             switch (llegeixString())
             {
                 case ( "v" ):
-                    escriu ("Mostrar el stock de motos");
                     escriu(controlador.ImprimirLocalsMotos());
                     break;
                 case ( "g" ):
@@ -192,7 +196,7 @@ public class Vista
         escriu(
                 "Seleccioni una opció: \n " +
                 "a - Registrar-se com a Administrador \n "+
-                "b - Registrar-se com a Gerent \n"+
+                "b - Registrar-se com a Gerent \n "+
                 "c - Registrar-se com a Client"
         );
         opcio = llegeixString();
@@ -218,6 +222,8 @@ public class Vista
                 break;
         }
     }
+    
+    /********** RESERVA MOTO *****/
     private void ferReserva(){
         String idLD = "";
         String idLO = "";
@@ -257,10 +263,22 @@ public class Vista
         escriu(controlador.ImprimirReservaClient());
     }
     
-    /**
-     * ESCRIU I LLEGIR
-     *  
-     */
+    /********** ENTREGAR MOTO ****/
+    private void entregarMoto() {
+        escriu("Entra el codi de la reserva");
+        String codi;
+        codi = llegeixString();
+        //Comprovar codigo correcto
+        if(controlador.entregarMoto(codi)) {
+            escriu("Entrega feta correctament");
+        }
+        else {
+            escriu("Codi de la resera incorrecta");
+        }
+    }
+    
+
+    /***** ESCRIU I LLEGIR ***/
     
     public void escriu(String s){
          System.out.println(s);
@@ -274,7 +292,9 @@ public class Vista
         System.out.println(f);
     }
     
-    public void escriu(Date d) {
+    public void escriu(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+        String d = dateFormat.format(date);
         System.out.println(d);
     }
     
@@ -286,18 +306,12 @@ public class Vista
         return scanner.nextLine();
     }
     
-    private void entregarMoto() {
-        escriu("Entra el codi de la reserva");
-        String codi;
-        codi = llegeixString();
-        //Comprovar codigo correcto
-        if(controlador.entregarMoto(codi)) {
-            escriu("Entrega feta correctament");
-        }
-        else {
-            escriu("Codi de la resera incorrecta");
-        }
+    public Date LlegeixDataSistema() {
+        Date date = new Date();
+        return date;
     }
+    
+    
     
     
 

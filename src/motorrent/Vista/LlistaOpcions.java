@@ -27,7 +27,7 @@ class LlistaOpcions
         /* gerente */
     private final String gerentFirstMenu;
         /* jefe */
-    private final String jefeFirstMenu;
+    private final String AdminFirstMenu;
     
     /* Variables para errores */
     private final String errorMenu;
@@ -74,7 +74,7 @@ class LlistaOpcions
                 Cgreen ( "c" ) + " - Comprovar stock de motos\n"    +
                 Cgreen ( "s" ) + " - Salir";
                 /* jefe */
-        jefeFirstMenu =
+        AdminFirstMenu =
                 "Eres el jefe.\n"                           +
                 "Escoja la opcion deseada:\n"               +
                 Cgreen ( "v" ) + " - Ver stock motos\n"     +
@@ -119,7 +119,7 @@ class LlistaOpcions
      * Menu principal del jefe
      * @return String de las opciones que tiene.
      */
-    public String getJefe () {return jefeFirstMenu; }
+    public String getAdmin () {return AdminFirstMenu; }
 
     /************************ Errors *****************************/
     /**

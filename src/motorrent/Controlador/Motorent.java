@@ -5,21 +5,16 @@
  */
 package motorrent.Controlador;
 
-/* Paquets propis */
 import motorrent.Modelo.Client;
 import motorrent.Modelo.Local;
 import motorrent.Modelo.Usuari;
 import motorrent.Modelo.Administrador;
 import motorrent.Modelo.Gerent;
 import motorrent.Modelo.EspecificacioMoto;
-
-/* Paquets de java */
-import java.io.Serializable; /* Per poder guardar els canvis */
+import motorrent.Modelo.Moto;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.lang.NumberFormatException;
-
-/* Aquest en concret si se pot treure millor */
-import motorrent.Modelo.Moto;
 
 
 
@@ -49,13 +44,8 @@ public class Motorent implements Serializable
         d.obtenirDades (this, xml);
     }
     
-     
-    /**
-     * Dir que el client a fet una reserva.
-     * Un estat de moment necessari per a poder fer els experiments amb el menu
-     *
     
-    /*******************    Parse   *******************************************************/
+    /*******************   PARSER   *******************************************************/
     /**
      * Parser, amb XML
      */
@@ -126,7 +116,10 @@ public class Motorent implements Serializable
         {   s = 0;  }
         return s;
     }
-    /************************** Imprimir *****************/
+    
+    
+    
+    /************************** IMPRIMIR *****************/
     /**
      * 
      */
@@ -180,9 +173,7 @@ public class Motorent implements Serializable
         return h;
     }
     
-    /**
-     * LogIn
-     */
+    /****** LOGIN *****/
     public boolean checkUser(String us, String ps) {
         boolean trobat = false;
         for(Object u: lst_usuari) {
@@ -193,6 +184,7 @@ public class Motorent implements Serializable
         }
         return trobat;
     }
+    
     public String typeUser() {
         String s = "";
         if(Usuari instanceof Client) {
@@ -210,9 +202,8 @@ public class Motorent implements Serializable
         }
         return s;
     }
-    /**
-     * ExisteixUser
-     */
+    
+    /***** EXISTEIX USER ****/
     public boolean existeixUsuari(String usuari) {
         boolean existeix = false;
         int i;
@@ -223,6 +214,8 @@ public class Motorent implements Serializable
         }
         return existeix;
     }
+    
+    /**** REGISTRE CLIENT ****/
     
     public void registreClient(String u, String p, String n, String d, String a) {
         String id = "c";
@@ -243,15 +236,8 @@ public class Motorent implements Serializable
      */
     /**
      * En el diagrama de sequencia falta añadir que se guarda en lst_reserva del local origen y destino para
-     * despues comprovar el codigo cuando se devuelve la moto o se entrega.
-     * @param idLO
-     * @param idM
-     * @param idD
-     * @param dR
-     * @param hR
-     * @param dD
-     * @param hD 
-     */
+     * despues comprovar el codigo cuando se devuelve la moto o se entrega Y que tambien se añade la moto
+     * al local destino para evitar que se haga otra reserva en un local que ya esta lleno.*/
     public void ferReserva(String idLO, String idM, String idD, String dR, String hR, String dD, String hD){
         String id = "r" + (numeroReserves++);
         ((Client)Usuari).crearReserva(idLO, idM, idD, dR, hR, dD, hD, id, SeleccionarMotoLocal(idM));
@@ -263,6 +249,8 @@ public class Motorent implements Serializable
         tmpL.addMoto(tmp);
     }
     
+    
+    /**** SELECCIONAR LOCAL *****/
     public void SeleccionarLocal(String idL) {
         for(int i = 0; i < lst_local.size(); ++i) {
             if (((Local)lst_local.get(i)).getId().equals(idL)) {
@@ -270,14 +258,15 @@ public class Motorent implements Serializable
             }
         }
     }
-    /* AÑADIR AL DIAGRAMA DE CLASES*/
+    
+    /**** SELECCIONAR MOTO *****/
+    /* AÑADIR AL DIAGRAMA DE CLASES ******/
     public Moto SeleccionarMotoLocal(String idM) {
         return tmpL.SeleccionarMoto(idM); 
     }
-    /**
-     * Comprovar si hi pot cabre la moto al local destí.
-     * @return 
-     */
+    
+    /***** COMPOROVAR CAPACITAT ****/
+    /***** AFEGIR AL DIAGRAMA DE CLASSES ****/
     public boolean checkCapacitat() {
         boolean c = true;
         if(tmpL.getCapacitat() < (tmpL.getNumMotos()+1)) {
@@ -286,14 +275,16 @@ public class Motorent implements Serializable
         return c;
     }
     
-    
+    /**** COMPROVAR SI TE RESERVA ****/
+    /**** AFEGIR AL DIAGRAMA DE CLASSES ***/
     public boolean hasReserva()
     { return ((Client)Usuari).hasReserva(); }
 
+    /**** GENERAR INFORME ***/
     public void generarInforme(){
         
     }
-
+    /***** ENTREGAR MOTO ****/
     public boolean entregarMoto(String codi) {
         tmpL = ((Gerent)Usuari).getLocal();
         if(tmpL.comprovarCodi(codi)) {
