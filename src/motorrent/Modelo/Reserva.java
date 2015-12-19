@@ -5,6 +5,12 @@
  */
 package motorrent.Modelo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Marc
@@ -105,5 +111,27 @@ public class Reserva {
         return moto;
     }
     
+    public void calcularCost() {
+        long a = 0;
+        try {
+            String r = DataR+ " " + horaR;
+            String d = DataD+ " " + horaD;
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Date dateR = simpleDateFormat.parse(r);
+            Date dateD = simpleDateFormat.parse(d);
+            a = (dateD.getTime() - dateR.getTime())/(1000*3600);
+            
+            
+        } catch (ParseException ex) {
+            Logger.getLogger(Reserva.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(a < 24) {
+            cost = (int) a +1;
+        }
+        else {
+            cost = (((int) a/24)*15) + (((int) a %24)+1);
+        }
+        
+    }
 }
     

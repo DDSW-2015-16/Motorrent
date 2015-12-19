@@ -91,6 +91,7 @@ public class Client extends Usuari
         res.setHoraR(hR);
         res.setId(id);
         res.setMoto(m);
+        res.calcularCost();
         
     }
     public void addReservaHistorial(String id,String moto, int cost, int falta, String local_inici,String hora_inici,String fecha_inici, String local_fi,String hora_fi,String fecha_fi) {

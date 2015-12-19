@@ -85,6 +85,7 @@ public class Local {
         res.setHoraR(hR);
         res.setId(id);
         res.setMoto(m);
+        res.calcularCost();
         lst_reserva.add(res);
     }
     
