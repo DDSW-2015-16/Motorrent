@@ -74,7 +74,7 @@ public class Local {
         return capacitat;
     }
     
-    public void addReserva(String idLO, String idM, String idD, String dR, String hR, String dD, String hD, String id) {
+    public void addReserva(String idLO, String idM, String idD, String dR, String hR, String dD, String hD, String id, Moto m) {
         Reserva res = new Reserva();
         res.setOrigen(idLO);
         res.setM(idM);
@@ -84,6 +84,7 @@ public class Local {
         res.setHoraD(hD);
         res.setHoraR(hR);
         res.setId(id);
+        res.setMoto(m);
         lst_reserva.add(res);
     }
     
@@ -108,18 +109,14 @@ public class Local {
             }
         }
         if(res != null) {
-            String idM = res.getM();
-            Moto m = null;
-            for(int i = 0; i < lst_moto.size(); ++i) {
-                if(((lst_moto.get(i)).getId()).equals(idM)) {
-                    m = lst_moto.get(i);
-                }
-            }
-            lst_moto.remove(m);
+            lst_moto.remove(res.getMoto());
             return true;
         }
         else {
             return false;
         }
+    }
+    public void addMoto(Moto m) {
+        lst_moto.add(m);
     }
 }

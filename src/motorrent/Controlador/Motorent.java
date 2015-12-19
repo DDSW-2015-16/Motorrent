@@ -36,7 +36,6 @@ public class Motorent implements Serializable
     ArrayList lst_especificacio_moto;
     Local tmpL; /* El faig anar per a crear, perque en aquest afeguira les motos */
     Usuari Usuari;
-    Moto motoR; /* s'ha de treure */
     int numeroReserves = 1;
     
     public Motorent (String xml)
@@ -255,11 +254,13 @@ public class Motorent implements Serializable
      */
     public void ferReserva(String idLO, String idM, String idD, String dR, String hR, String dD, String hD){
         String id = "r" + (numeroReserves++);
-        ((Client)Usuari).crearReserva(idLO, idM, idD, dR, hR, dD, hD, id);
+        ((Client)Usuari).crearReserva(idLO, idM, idD, dR, hR, dD, hD, id, SeleccionarMotoLocal(idM));
         SeleccionarLocal(idLO);
-        tmpL.addReserva(idLO, idM, idD, dR, hR, dD, hD, id);
+        Moto tmp = SeleccionarMotoLocal(idM);
+        tmpL.addReserva(idLO, idM, idD, dR, hR, dD, hD, id,tmp);
         SeleccionarLocal(idD);
-        tmpL.addReserva(idLO, idM, idD, dR, hR, dD, hD, id);
+        tmpL.addReserva(idLO, idM, idD, dR, hR, dD, hD, id,tmp);
+        tmpL.addMoto(tmp);
     }
     
     public void SeleccionarLocal(String idL) {
@@ -269,7 +270,10 @@ public class Motorent implements Serializable
             }
         }
     }
-    
+    /* AÑADIR AL DIAGRAMA DE CLASES*/
+    public Moto SeleccionarMotoLocal(String idM) {
+        return tmpL.SeleccionarMoto(idM); 
+    }
     /**
      * Comprovar si hi pot cabre la moto al local destí.
      * @return 
@@ -281,10 +285,7 @@ public class Motorent implements Serializable
         }
         return c;
     }
-    /* AÑADIR AL DIAGRAMA DE CLASES*/
-    public void SeleccionarMotoLocal(String idM) {
-        motoR = tmpL.SeleccionarMoto(idM); 
-    }
+    
     
     public boolean hasReserva()
     { return ((Client)Usuari).hasReserva(); }

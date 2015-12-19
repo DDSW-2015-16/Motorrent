@@ -80,7 +80,7 @@ public class Client extends Usuari
     public Reserva getReserva() {
         return res;
     }
-    public void crearReserva(String idLO, String idM, String idD, String dR, String hR, String dD, String hD, String id) {
+    public void crearReserva(String idLO, String idM, String idD, String dR, String hR, String dD, String hD, String id, Moto m) {
         res = new Reserva();
         res.setOrigen(idLO);
         res.setM(idM);
@@ -90,6 +90,7 @@ public class Client extends Usuari
         res.setHoraD(hD);
         res.setHoraR(hR);
         res.setId(id);
+        res.setMoto(m);
         
     }
     public void addReservaHistorial(String id,String moto, int cost, int falta, String local_inici,String hora_inici,String fecha_inici, String local_fi,String hora_fi,String fecha_fi) {
