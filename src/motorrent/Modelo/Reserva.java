@@ -112,24 +112,28 @@ public class Reserva {
     }
     
     public void calcularCost() {
-        long a = 0;
+        int a = 0;
         try {
             String r = DataR+ " " + horaR;
             String d = DataD+ " " + horaD;
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             Date dateR = simpleDateFormat.parse(r);
             Date dateD = simpleDateFormat.parse(d);
-            a = (dateD.getTime() - dateR.getTime())/(1000*3600);
+            a = (int) ((dateD.getTime() - dateR.getTime())/(1000*3600));
             
             
         } catch (ParseException ex) {
             Logger.getLogger(Reserva.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(a < 24) {
-            cost = (int) a +1;
+        if(a > 24) {
+            cost += 15*(a/(24));
+            a -= (((int)(a/24))*24);
         }
-        else {
-            cost = (((int) a/24)*15) + (((int) a %24)+1);
+        if(a%3600 == 0) {
+            cost += 1;
+        }
+        if(a%3600 > 0) {
+            cost += 1;
         }
         
     }
