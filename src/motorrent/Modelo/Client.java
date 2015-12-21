@@ -21,7 +21,7 @@ public class Client extends Usuari
     private String Correu;
     private int Tel;
     private String Vip;
-    private Adreça adr;
+    private String adr;
     private ComptaCorrent cc;
     private ArrayList<Reserva> historial = new ArrayList<Reserva>();
     private Data dataN;
@@ -38,7 +38,7 @@ public class Client extends Usuari
         this.id = id;
         Nom = nom;
         DNI = dni;
-        adr = new Adreça(adreca);
+        adr = adreca;
         Vip = vip;
         this.renovacio = renovacio;
         this.faltes = faltes;
@@ -65,6 +65,34 @@ public class Client extends Usuari
         }
     }
     
+    public void rmReservaActiva() {
+        res = null;
+    }
+    
+    public void setNom(String Nom) {
+        this.Nom = Nom;
+    }
+
+    public void setDNI(String DNI) {
+        this.DNI = DNI;
+    }
+
+    public void setFaltes(int faltes) {
+        this.faltes = faltes;
+    }
+
+    public void setVip(String Vip) {
+        this.Vip = Vip;
+    }
+
+    public void setAdr(String adr) {
+        this.adr = adr;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+    
     public String getUser() {
         return super.getUsuari();
     }
@@ -80,19 +108,15 @@ public class Client extends Usuari
     public Reserva getReserva() {
         return res;
     }
-    public void crearReserva(String idLO, String idM, String idD, String dR, String hR, String dD, String hD, String id, Moto m) {
+    public void setReserva(Reserva r) {
+        res = r;
+    }
+    public Reserva crearReserva() {
         res = new Reserva();
-        res.setOrigen(idLO);
-        res.setM(idM);
-        res.setDataD(dD);
-        res.setDataR(dR);
-        res.setDesti(idD);
-        res.setHoraD(hD);
-        res.setHoraR(hR);
-        res.setId(id);
-        res.setMoto(m);
-        res.calcularCost();
-        
+        return res;
+    }
+    public void addReserva(Reserva res) {
+        historial.add(res);
     }
     public void addReservaHistorial(String id,String moto, int cost, int falta, String local_inici,String hora_inici,String fecha_inici, String local_fi,String hora_fi,String fecha_fi) {
         Reserva r = new Reserva();
@@ -123,7 +147,15 @@ public class Client extends Usuari
         s += res;
         return s;
     }
-
+    
+    
+    public void setPassword(String s) {
+        super.setPassword(s);
+    }
+    
+    public void setUser(String s) {
+        super.setUser(s);
+    }
 
    
 }

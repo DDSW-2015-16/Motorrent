@@ -15,6 +15,7 @@ import motorrent.Modelo.Moto;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.lang.NumberFormatException;
+import motorrent.Modelo.Reserva;
 import motorrent.Vista.Vista;
 
 
@@ -130,34 +131,23 @@ public class Motorent implements Serializable
         String sortida = "";
         int i;
         for (i = 0; i < lst_local.size(); ++i) {
-            sortida += "Local: " + i + ".- \n" +
+            sortida += "Local: " + (i+1) + ".- \n" +
                 "----------------- \n";
             sortida += (lst_local.get(i)) + "\n";
         }
         return sortida;
     }
-    public String ImprimirMotos() {
-        String i = "";
-        i += tmpL.imprimirMotos();
-        return i;
-    }
-    public String ImprimirLocalsMotos() {
+
+    public void ImprimirLocalsMotos() {
         String sortida = "";
         int i;
         for (i = 0; i < lst_local.size(); ++i) {
-            sortida += "Local: " + i + ".- \n"+
+            sortida += "Local: " + (i+1) + ".- \n"+
                 "----------------- \n";
             sortida += (lst_local.get(i)) + "\n";
             sortida += ((Local) lst_local.get(i)).imprimirMotos() + "\n";
         }
-        return sortida;
-    }
-    
-    public String ImprimirReservaClient() {
-        String s = "Resum de la reserva: \n" +
-                "----------------- \n";
-        s += ((Client)Usuari).imprimirReservaActiva();
-        return s;
+        vista.escriu(sortida);
     }
     
     
@@ -177,50 +167,67 @@ public class Motorent implements Serializable
     }
     
     /****** LOGIN *****/
-    public boolean checkUser(String us, String ps) {
-        boolean trobat = false;
-        for(Object u: lst_usuari) {
-            if((((Usuari)u).getUsuari().equals(us)) && ((Usuari)u).getPassword().equals(ps)){
-                trobat = true;
-                Usuari = (Usuari) u;
-            }       
-        }
-        return trobat;
-    }
-    
-    public String typeUser() {
-        String s = "";
-        if(Usuari instanceof Client) {
-            s = "c";
-            int max = 3;
-            if(((Client)Usuari).getFaltes()== max) {
-                s = "e";
-            }
-        }
-        else if(Usuari instanceof Gerent) {
-            s = "g";
-        }
-        else if(Usuari instanceof Administrador) {
-            s = "a";
-        }
-        return s;
-    }
-    
-    /***** EXISTEIX USER ****/
-    public boolean existeixUsuari(String usuari) {
+   public void login() {
+        vista.escriu ("Introdueixi el seu nom d'usuari: ");
+        String us = vista.llegeixString();
+        vista.escriu("Introdueixi la seva contrasenya:");
+        String ps = vista.llegeixString();
         boolean existeix = false;
-        int i;
-        for(i = 0; i < lst_usuari.size() && !existeix; ++i) {
-            if(((Usuari)lst_usuari.get(i)).getUsuari().equals(usuari)) {
+        for(Object u: lst_usuari) {
+            if(((Usuari)u).checkUser(us, ps)) {
                 existeix = true;
+                Usuari = (Usuari) u;
+            }
+        }       
+        if(existeix) {
+            if(Usuari instanceof Client) {
+                int max = 3;
+                if(((Client)Usuari).getFaltes() == max) {
+                    vista.escriu("Té mes de 3 faltes:");
+                }
+                else {
+                    vista.MenuCliente();
+                }
+            }
+            else if(Usuari instanceof Gerent) {
+                vista.MenuGerente();
+            }
+            else if(Usuari instanceof Administrador) {
+                vista.MenuAdministrador();
             }
         }
-        return existeix;
+        else {
+            vista.escriu("Usari o contrasenya erronies.");
+        }
+        
     }
     
     /**** REGISTRE CLIENT ****/
+    public void Registre() {
+        vista.escriu("Introdueixi el nom d'usuari que desitji :");
+        String us = vista.llegeixString();
+        boolean existeix = true;
+        while(existeix) {
+            for(Object u: lst_usuari) {
+                if(((Usuari)u).existeix_usuari(us)) {
+                    vista.escriu("L'usuari ja existeix.");
+                    vista.escriu("Introdueixi el nom d'usuari que desitji :");
+                    us = vista.llegeixString();
+                }
+                else {
+                    existeix = false;
+                }
+            } 
+        }
+        if(!existeix) {
+            Client c = new Client();
+            c.setUser(us);
+            demanarDades(c);
+        }
+    }
     
-    public void registreClient(String u, String p, String n, String d, String a) {
+    
+    public void demanarDades(Usuari u) {
         String id = "c";
         int i = 1;
         for(Object us: lst_usuari) {
@@ -229,67 +236,98 @@ public class Motorent implements Serializable
             }
         }
         id += i;
-        Client nou = new Client(id,n,d,a,u,p,"false","false",0);
-        lst_usuari.add(nou);
-    }
+        Client c = (Client) u;
+        c.setId(id);
+        vista.escriu("Introdueix la contrasenya: ");
+        c.setPassword(vista.llegeixString());
+        vista.escriu("Introduciex el nom i cognoms: ");
+        c.setNom(vista.llegeixString());
+        vista.escriu("Introdueix el seu DNI: ");
+        c.setDNI(vista.llegeixString());
+        vista.escriu("Introdueix la seva adreça ");
+        c.setAdr(vista.llegeixString());
+        c.setVip("false");
+        lst_usuari.add(c);
+ }
+
     
     
     /**
      * RESERVA
      */
-    /**
-     * En el diagrama de sequencia falta añadir que se guarda en lst_reserva del local origen y destino para
-     * despues comprovar el codigo cuando se devuelve la moto o se entrega Y que tambien se añade la moto
-     * al local destino para evitar que se haga otra reserva en un local que ya esta lleno.*/
-    public void ferReserva(String idLO, String idM, String idD, String dR, String hR, String dD, String hD){
-        String id = "r" + (numeroReserves++);
-        ((Client)Usuari).crearReserva(idLO, idM, idD, dR, hR, dD, hD, id, SeleccionarMotoLocal(idM));
-        SeleccionarLocal(idLO);
-        Moto tmp = SeleccionarMotoLocal(idM);
-        tmpL.addReserva(idLO, idM, idD, dR, hR, dD, hD, id,tmp);
-        SeleccionarLocal(idD);
-        tmpL.addReserva(idLO, idM, idD, dR, hR, dD, hD, id,tmp);
-        tmpL.addMoto(tmp);
-    }
     
-    
-    /**** SELECCIONAR LOCAL *****/
-    public void SeleccionarLocal(String idL) {
-        for(int i = 0; i < lst_local.size(); ++i) {
-            if (((Local)lst_local.get(i)).getId().equals(idL)) {
-                tmpL = (Local)lst_local.get(i);
-            }
+    public void ferReserva() {
+        if(((Client)Usuari).hasReserva()) {
+            vista.escriu("Voste no pot fer una reserva ja que en té una d'activa.");
         }
-    }
+        else {
+            Reserva res = ((Client)Usuari).crearReserva();
+            res.setId("r"+(numeroReserves++));
+            Local or = seleccionarLocal();
+            res.setOrigen(or.getId());
+            Moto m = SeleccionarMotoLocal(or);
+            while(!m.getEstat().equals("disponible")) {
+                vista.escriu("La moto seleccionada no està disponible.");
+                vista.escriu("Seleccioni una altra moto:");
+                m = SeleccionarMotoLocal(or);
+            }
+            res.setMoto(m);
+            res.setM(m.getId());
+            Local d = seleccionarLocal();
+            while (!checkCapacitat(d)) {
+                vista.escriu("El local no té suficient espai");
+                vista.escriu("Seleccioni un altre local");
+                d = seleccionarLocal();
+            }
+            m.setNoDisponible();
+            d.addMoto(m);
+            res.setDesti(d.getId());
+            vista.escriu("Introdueixi la data de recollida(DD/MM/AAAA): ");
+            res.setDataR(vista.llegeixString());
+            vista.escriu("Introdueixi l'hora de recollida(HH:MM:SS): ");
+            res.setHoraR(vista.llegeixString());
+            vista.escriu("Introdueixi la data de devolució(DD/MM/AAAA): ");
+            res.setDataD(vista.llegeixString());
+            vista.escriu("Introdueixi l'hora de devolució(HH:MM:SS): ");
+            res.setHoraD(vista.llegeixString());
+            res.setIdC(((Client)Usuari).getId());
+            res.calcularCost();
+            ((Client)Usuari).setReserva(res);
+            or.addReserva(res);
+            d.addReserva(res);
+            vista.escriu("Resum de la reserva:");
+            vista.escriu(((Client)Usuari).imprimirReservaActiva());
+        }
+    }  
+    
+   
     
     /** Retorna null si la entrada es incorrecta */
     private Local seleccionarLocal()
     {
         Local local;
-        int i;
+        String i;
         
         local = null;
         
         vista.escriu(ImprimirLocals());
-        i = vista.llegeixInt();
-        
-        if ( (i >= 0) && (i < lst_local.size()))
-            local = (Local) lst_local.get(i);
+        vista.escriu("Seleccioni l'identificador(ID) del local que desitja:");
+        i = vista.llegeixString();
+        for(Object l:lst_local) {
+            if(((Local)l).getId().equals(i)) {
+                local = (Local)l;
+            }
+        }
         return local;
     }
-    
-    /**** SELECCIONAR MOTO *****/
-    /* AÑADIR AL DIAGRAMA DE CLASES ******/
-    public Moto SeleccionarMotoLocal(String idM) {
-        return tmpL.SeleccionarMoto(idM); 
-    }
-    
+ 
     private Moto SeleccionarMotoLocal (Local local)
     {
         Moto moto;
         String i;
         
         vista.escriu (local.imprimirMotos());
+        vista.escriu("Seleccioni l'identificador(ID) de la moto que desitja:");
         i = vista.llegeixString();
         
         moto = local.SeleccionarMoto(i);
@@ -298,32 +336,83 @@ public class Motorent implements Serializable
     
     /***** COMPOROVAR CAPACITAT ****/
     /***** AFEGIR AL DIAGRAMA DE CLASSES ****/
-    public boolean checkCapacitat() {
+    public boolean checkCapacitat(Local l) {
         boolean c = true;
-        if(tmpL.getCapacitat() < (tmpL.getNumMotos()+1)) {
+        if(l.getCapacitat() < (l.getNumMotos()+1)) {
             c = false;
         }
         return c;
     }
-    
-    /**** COMPROVAR SI TE RESERVA ****/
-    /**** AFEGIR AL DIAGRAMA DE CLASSES ***/
-    public boolean hasReserva()
-    { return ((Client)Usuari).hasReserva(); }
+
 
     /**** GENERAR INFORME ***/
     public void generarInforme(){
         
     }
     /***** ENTREGAR MOTO ****/
-    public boolean entregarMoto(String codi) {
-        tmpL = ((Gerent)Usuari).getLocal();
-        if(tmpL.comprovarCodi(codi)) {
-            return true;
+    public void entregarMoto() {
+        vista.escriu("Introdueixi el codi de la reserva:");
+        String c = vista.llegeixString();
+        Local o = ((Gerent)Usuari).getLocal();
+        Reserva res = o.comprovarCodi(c);
+        while(res == null) {
+            vista.escriu("El codi de la reserva és incorrecte.");
+            vista.escriu("Introdueixi el codi un altre cop: ");
+            c = vista.llegeixString();
+            res = o.comprovarCodi(c);
         }
-        else {
-           return false;
+        vista.escriu(res.toString());
+        Moto m = res.getMoto();
+        o.rmMoto(m);
+    }
+    
+    public void RetornarMoto() {
+        vista.escriu("Introdueixi el codi de la reserva:");
+        String c = vista.llegeixString();
+        Local o = ((Gerent)Usuari).getLocal();
+        Reserva res = o.comprovarCodi(c);
+        int faltes = 0;
+        while(res == null) {
+            vista.escriu("El codi de la reserva és incorrecte.");
+            vista.escriu("Introdueixi el codi un altre cop: ");
+            c = vista.llegeixString();
+            res = o.comprovarCodi(c);
         }
+        vista.escriu(res.toString());
+        Client cl = getClient(res.getIdC());
+        Moto m = res.getMoto();
+        vista.escriu("Introdueixi l'estat de la moto(avariada/dispnible)");
+        String es = vista.llegeixString();
+        o.rmMoto(m);
+        m.setEstat(es);
+        o.addMoto(m);
+        if(es.equals("avariada")) {
+            res.setFalta(faltes+1);
+        }
+        vista.escriu("L'ha tornat amb retard(S/N)?");
+        if(vista.llegeixString().equals("S")) {
+            vista.escriu("Introdueixi data de la devolució(DD/MM/AAAA): ");
+            res.setDataD(vista.llegeixString());
+            vista.escriu("Introdueixi hora de devolució(HH:MM:SS):");
+            res.setHoraD(vista.llegeixString());
+            res.calcularCost();
+            res.setFalta(faltes+1);
+        }
+        cl.addReserva(res);
+        cl.rmReservaActiva();
+        
+    }
+    
+    public Client getClient(String id) {
+        Client tmp = null;
+        for(Object u:lst_usuari) {
+            if(u instanceof Client) {
+                if(((Client)u).getId().equals(id)) {
+                    tmp = (Client) u;
+                }
+            }
+        }
+        return tmp;
     }
     
     public void gestionarLocal()

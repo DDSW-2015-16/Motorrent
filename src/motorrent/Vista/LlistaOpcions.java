@@ -45,8 +45,8 @@ class LlistaOpcions
         ANSI_GREEN = "\u001B[32m";
         
         /* Cortesia */
-        presentacio = "Bienvenido a Motorrent!";
-        exit = "Deseamos verlo pronto por aqui";
+        presentacio = "Benvingut a Motorent!";
+        exit = "Fins aviat!";
         
         /* Menus */
         Client = 
@@ -54,35 +54,31 @@ class LlistaOpcions
                 "Escoja la opcion deseada:\n"           +
                 Cgreen ( "c" ) + " - Consultar reserves anteriors\n"         +
                 Cgreen ( "r" ) + " - Fer una reserva \n"     +
-                Cgreen ( "m" ) + " - Modificar una reserva \n"     +
-                Cgreen ( "f" ) + " - Consultar numero de faltes \n"     +
-                Cgreen ( "d" ) + " - Consultar dades personals \n"    +
-                Cgreen ( "s" ) + " - Salir";
+                Cgreen ( "s" ) + " - Sortir";
         noClient =
                 "Menu principal.\n"   +
-                "Escoja la opcion deseada:\n"           +
+                "Seleccioni una opció:\n"           +
                 Cgreen ( "l" ) + " - Logarse\n"         +
-                Cgreen ( "r" ) + " - Registrarse\n"     +
-                Cgreen ( "q" ) + " - Salir";
+                Cgreen ( "r" ) + " - Registrar-se\n"     +
+                Cgreen ( "s" ) + " - Sortir";
                 /* gerent */
         gerentFirstMenu =
-                "Eres gerente.\n"                                   +
-                "Escoja la opcion deseada:\n"                       +
+                "Menu Gerent.\n"                                   +
+                "Seleccioni una opció:\n"                       +
                 Cgreen ( "m" ) + " - Entregar moto\n"              +
-                Cgreen ( "g" ) + " - Gestionar local\n"             +
-                Cgreen ( "r" ) + " - Comprovar reserva\n"           +
-                Cgreen ( "c" ) + " - Comprovar stock de motos\n"    +
-                Cgreen ( "s" ) + " - Salir";
+                Cgreen ( "g" ) + " - Gestió del local\n"              +
+                Cgreen ( "r" ) + " - Recollir moto\n"           +
+                Cgreen ( "s" ) + " - Sortir";
                 /* jefe */
         AdminFirstMenu =
-                "Eres el jefe.\n"                           +
-                "Escoja la opcion deseada:\n"               +
+                "Menu Administrador.\n"                           +
+                "Seleccioni una opció:\n"               +
                 Cgreen ( "v" ) + " - Ver stock motos\n"     +
-                Cgreen ( "g" ) + " - Gestionar locales\n"   +
-                Cgreen ( "s" ) + " - Salir";
+                Cgreen ( "g" ) + " - Generar Informe\n"   +
+                Cgreen ( "s" ) + " - Sortir";
         
         /* Errores */
-        errorMenu = Cred ("La entrada no a sido identificada.") +" Profavor, entra lo que pide el menu";
+        errorMenu = Cred ("La entrada no ha sigut identificada.") +" Sisplau, entri el que se li demana al menú";
     }
     
     /************************ Cortesia *****************************/

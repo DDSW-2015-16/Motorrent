@@ -17,6 +17,7 @@ import java.util.logging.Logger;
  */
 public class Reserva {
     private String id;
+    private String idC;
     private int Retard;
     private Data DataR;
     private Data DataD;
@@ -83,6 +84,16 @@ public class Reserva {
         moto = mo;
     }
 
+    public String getIdC() {
+        return idC;
+    }
+
+    public void setIdC(String idC) {
+        this.idC = idC;
+    }
+
+    
+
     @Override
     public String toString() {
         String s = "";
@@ -112,6 +123,7 @@ public class Reserva {
     }
     
     public void calcularCost() {
+        cost = 0;
         int a = 0;
         try {
             String r = DataR+ " " + horaR;

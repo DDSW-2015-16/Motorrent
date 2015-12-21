@@ -42,13 +42,13 @@ public class Vista
             switch ( llegeixString() )
             {
                 case ( "l" ):
-                    Logarse ();
+                    controlador.login();
                     break;
                 case ( "r" ):
-                    demanarDades();
+                    controlador.Registre();
                     escriu("S'ha registrat correctament!");
                     break;
-                case ( "q" ):
+                case ( "s" ):
                     loop = false;
                     escriu( strings.getExit() );
                     break;
@@ -57,41 +57,11 @@ public class Vista
             }
         }
     }
-    
-    /*********** MENU LOGIN ************/
-    private void Logarse ()
-    {
-        
-        escriu("Ha entrat al menu de logarse" );
-        escriu ("Introdueixi el seu nom d'usuari: ");
-        String us = "";
-        String ps = "";
-        us = llegeixString();
-        escriu("Introdueixi la seva contrasenya:");
-        ps = llegeixString();
-        if(controlador.checkUser(us, ps)) {
-            switch(controlador.typeUser()) {
-                case ("c"):
-                    MenuCliente();
-                    break;
-                case ("e"):
-                    escriu("Acces denegat. Vosté té 3 o més faltes acumulades.");
-                case ("g"):
-                    MenuGerente();
-                    break;
-                case ("a"):
-                    MenuAdministrador();
-                    break;
-            }
-        }
-        else {
-            escriu("Usuari o contrasenya incorrecta, torna a provar-ho");
-        }
-    }
+  
    
     
     /*************** MENU USUARIS  ***********/
-    private void MenuCliente ()
+    public void MenuCliente ()
     { /* No hay ningun printf, ja que los hacen los submenus corresponientes */
         boolean loop = true;
         while (loop)
@@ -103,23 +73,7 @@ public class Vista
                     escriu (controlador.ImprimirH());
                     break;
                 case ( "r" ):
-                    if(controlador.hasReserva()) {
-                        escriu("Ja té una reserva feta");
-                        break;
-                    }
-                    else {
-                        ferReserva();
-                        break;
-                    }
-                case ( "m" ):
-                    escriu ("Modificar reserva");
-                    break;
-                case ( "f" ):
-                    escriu("Consultar faltes");
-                    break;
-                case ("d"):
-                    escriu("Consultar dades");
-                    break;
+                    controlador.ferReserva();
                 case ( "s" ):
                     loop = false;
                     break;
@@ -131,7 +85,7 @@ public class Vista
     }
 
     /************* MENU GERENT ********/
-    private void MenuGerente ()
+    public void MenuGerente ()
     {
         boolean loop = true;
         while (loop)
@@ -140,16 +94,13 @@ public class Vista
             switch ( llegeixString() )
             {
                 case ( "m" ):
-                    entregarMoto();
+                    controlador.entregarMoto();
                     break;
                 case ( "g" ):
                     controlador.gestionarLocal ();
                     break;
                 case ( "r" ):
-                    escriu ("Comprovat la reserva");
-                    break;
-                case ( "c" ):
-                    escriu ("Comprovat l'estoc de les motos");
+                    controlador.RetornarMoto();
                     break;
                 case ( "s" ):
                     loop = false;
@@ -161,7 +112,7 @@ public class Vista
     }
     
     /********** MENU ADMINISTRADOR **********/
-    private void MenuAdministrador ()
+    public void MenuAdministrador ()
     {
         boolean loop = true;
         while (loop)
@@ -170,10 +121,10 @@ public class Vista
             switch (llegeixString())
             {
                 case ( "v" ):
-                    escriu(controlador.ImprimirLocalsMotos());
+                    controlador.ImprimirLocalsMotos();
                     break;
                 case ( "g" ):
-                    escriu ("Gestionado los locales");
+                    escriu ("Generar infomre");
                     break;
                 case ( "s" ):
                     loop = false;
@@ -183,98 +134,7 @@ public class Vista
             }
         }
     }
-    
-    /******** DEMANAR DADES PEL REGISTRE ************/
-    private void demanarDades() {
-        String u = "";
-        String p = "";
-        String d = "";
-        String a = "";
-        String n = "";
-        String opcio = "";
-        escriu(
-                "Seleccioni una opció: \n " +
-                "a - Registrar-se com a Administrador \n "+
-                "b - Registrar-se com a Gerent \n "+
-                "c - Registrar-se com a Client"
-        );
-        opcio = llegeixString();
-        escriu("Introdueixi el nom d'usuari que desitji :");
-        while(controlador.existeixUsuari(u = llegeixString())) {
-             escriu("L'usuari ja existeix, torna a introduir un altre nom d'usuari.");
-        }
-        escriu("Introdueix la contrasenya: ");
-        p = llegeixString();
-        escriu("Introdueix el nom i cognoms: ");
-        n = llegeixString();
-        switch(opcio) {
-            case ("a"):
-                break;
-            case ("b"):
-                break;
-            case("c"): 
-                escriu("Introdueix el seu DNI: ");
-                d = llegeixString();
-                escriu("Introdueix la seva adreça ");
-                a = llegeixString();
-                controlador.registreClient(u, p, n, d, a);
-                break;
-        }
-    }
-    
-    /********** RESERVA MOTO *****/
-    private void ferReserva(){
-        String idLD = "";
-        String idLO = "";
-        String idM = "";
-        String dR = "";
-        String dD = "";
-        String hR = "";
-        String hD = "";
-        escriu("Seleccioni l'identificador (ID) del local origen: ");
-        escriu(controlador.ImprimirLocals());
-        idLO = llegeixString();
-        controlador.SeleccionarLocal(idLO);
-        escriu("Seleccioni l'identificador(ID) de la moto que desijta: ");
-        escriu(controlador.ImprimirMotos());
-        idM = llegeixString();
-        controlador.SeleccionarMotoLocal(idM);
-        escriu("Seleccioni l'identificador (ID) del local desti: ");
-        escriu(controlador.ImprimirLocals());
-        idLD = llegeixString();
-        controlador.SeleccionarLocal(idLD);
-        while(!controlador.checkCapacitat()) {
-            escriu("No hi ha espai suficient");
-            escriu("Seleccioni un altre local:");
-            escriu(controlador.ImprimirLocals());
-            idLD = llegeixString();
-            controlador.SeleccionarLocal(idLD);
-        }
-        escriu("Escriu la data de recollida de la moto(DD/MM/AAAA):");
-        dR = llegeixString();
-        escriu("Escriu l'hora de recollida de la moto(HH/MM/SS):");
-        hR = llegeixString();
-        escriu("Escriu la data de devolucio de la moto(DD/MM/AAAA):");
-        dD = llegeixString();
-        escriu("Escriu l'hora de devolucio de la moto(HH/MM/SS):");
-        hD = llegeixString();
-        controlador.ferReserva(idLO, idM, idLD, dR, hR, dD, hD);
-        escriu(controlador.ImprimirReservaClient());
-    }
-    
-    /********** ENTREGAR MOTO ****/
-    private void entregarMoto() {
-        escriu("Entra el codi de la reserva");
-        String codi;
-        codi = llegeixString();
-        //Comprovar codigo correcto
-        if(controlador.entregarMoto(codi)) {
-            escriu("Entrega feta correctament");
-        }
-        else {
-            escriu("Codi de la resera incorrecta");
-        }
-    }
+
     
      
     /***** ESCRIU I LLEGIR ***/

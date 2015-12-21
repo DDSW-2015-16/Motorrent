@@ -51,4 +51,12 @@ public class Moto {
     public String getId() {
         return identificador;
     }
+    
+    public String getEstat() {
+        return estat;
+    }
+    
+    public void setEstat(String s) {
+        estat = s;
+    }
 }

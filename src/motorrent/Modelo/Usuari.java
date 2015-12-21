@@ -27,4 +27,31 @@ public class Usuari {
     public String getPassword() {
         return password;
     }
+
+    public boolean checkUser(String us, String ps) {
+        boolean check = false;
+        if(getUsuari().equals(us)) {
+            if(getPassword().equals(ps)) {
+                check = true;
+            } 
+        }
+        return check;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    public boolean existeix_usuari(String us) {
+        if(getUsuari().equals(us)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
