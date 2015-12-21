@@ -15,6 +15,7 @@ import motorrent.Modelo.Moto;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.lang.NumberFormatException;
+import motorrent.Vista.Vista;
 
 
 
@@ -32,9 +33,11 @@ public class Motorent implements Serializable
     Local tmpL; /* El faig anar per a crear, perque en aquest afeguira les motos */
     Usuari Usuari;
     int numeroReserves = 1;
+    Vista vista;
     
-    public Motorent (String xml)
+    public Motorent (String xml, Vista vs)
     {
+        vista = vs;
         /* Normalment aquest no es necessari, pero ara no tinc llistes... */
         lst_usuari = new ArrayList<Usuari> ();
         lst_local = new ArrayList<Local> ();
@@ -259,10 +262,38 @@ public class Motorent implements Serializable
         }
     }
     
+    /** Retorna null si la entrada es incorrecta */
+    private Local seleccionarLocal()
+    {
+        Local local;
+        int i;
+        
+        local = null;
+        
+        vista.escriu(ImprimirLocals());
+        i = vista.llegeixInt();
+        
+        if ( (i >= 0) && (i < lst_local.size()))
+            local = (Local) lst_local.get(i);
+        return local;
+    }
+    
     /**** SELECCIONAR MOTO *****/
     /* AÑADIR AL DIAGRAMA DE CLASES ******/
     public Moto SeleccionarMotoLocal(String idM) {
         return tmpL.SeleccionarMoto(idM); 
+    }
+    
+    private Moto SeleccionarMotoLocal (Local local)
+    {
+        Moto moto;
+        String i;
+        
+        vista.escriu (local.imprimirMotos());
+        i = vista.llegeixString();
+        
+        moto = local.SeleccionarMoto(i);
+        return moto;
     }
     
     /***** COMPOROVAR CAPACITAT ****/
@@ -292,6 +323,26 @@ public class Motorent implements Serializable
         }
         else {
            return false;
+        }
+    }
+    
+    public void gestionarLocal()
+    {
+        String s;
+        Local rebreMoto;
+        int n, idLocal, numLocalO;
+        boolean capacitat, trobat;
+        Moto motoT;
+        
+        trobat = false;
+        
+        rebreMoto = seleccionarLocal ();
+        if (rebreMoto == null)
+        {
+            vista.escriu ( "No s'ha seleccionat el local correctament\n" );
+        } else
+        {
+            motoT = SeleccionarMotoLocal(rebreMoto);
         }
     }
 }

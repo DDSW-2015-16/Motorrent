@@ -28,7 +28,7 @@ public class Vista
     {
         scanner = new Scanner ( System.in );
         strings = new LlistaOpcions ();
-        controlador = new Motorent ("data/MotoRent.xml");
+        controlador = new Motorent ("data/MotoRent.xml", this);
     }
     
      /*************** MENU PRINCIPAL **************/
@@ -86,7 +86,6 @@ public class Vista
         }
         else {
             escriu("Usuari o contrasenya incorrecta, torna a provar-ho");
-            MenuNoIdentificado();
         }
     }
    
@@ -144,7 +143,7 @@ public class Vista
                     entregarMoto();
                     break;
                 case ( "g" ):
-                    escriu ("Gestionat el local");
+                    controlador.gestionarLocal ();
                     break;
                 case ( "r" ):
                     escriu ("Comprovat la reserva");
@@ -277,7 +276,7 @@ public class Vista
         }
     }
     
-
+     
     /***** ESCRIU I LLEGIR ***/
     
     public void escriu(String s){
