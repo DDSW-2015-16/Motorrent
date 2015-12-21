@@ -343,6 +343,14 @@ public class Motorent implements Serializable
         } else
         {
             motoT = SeleccionarMotoLocal(rebreMoto);
+            if (motoT == null)
+            {
+                vista.escriu ( "No s'ha seleccionat amb el id correctament la moto\n" );
+            } else
+            {
+                rebreMoto.rmMoto (motoT);
+                ((Gerent)Usuari).getLocal().addMoto(motoT);
+            }
         }
     }
 }

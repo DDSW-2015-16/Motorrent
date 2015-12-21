@@ -120,4 +120,8 @@ public class Local {
     public void addMoto(Moto m) {
         lst_moto.add(m);
     }
+    public void rmMoto (Moto m)
+    {
+        lst_moto.remove(m);
+    }
 }
