@@ -72,7 +72,9 @@ public class Reserva {
     public void setFalta(int falta) {
         this.falta = falta;
     }
-    
+    public void addFalta() {
+        ++falta;
+    }
     public void setHoraR(String horaR) {
         this.horaR = horaR;
     }

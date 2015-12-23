@@ -127,7 +127,7 @@ public class Motorent implements Serializable
     /**
      * 
      */
-    public String ImprimirLocals() {
+    public String imprimirLocal() {
         String sortida = "";
         int i;
         for (i = 0; i < lst_local.size(); ++i) {
@@ -168,7 +168,6 @@ public class Motorent implements Serializable
     
     /****** LOGIN *****/
    public void login() {
-        vista.escriu(ImprimirUsuaris());
         vista.escriu ("Introdueixi el seu nom d'usuari: ");
         String us = vista.llegeixString();
         vista.escriu("Introdueixi la seva contrasenya:");
@@ -267,11 +266,11 @@ public class Motorent implements Serializable
             res.setId("r"+(numeroReserves++));
             Local or = seleccionarLocal();
             res.setOrigen(or.getId());
-            Moto m = SeleccionarMotoLocal(or);
+            Moto m = seleccionarMoto(or);
             while(!m.getEstat().equals("disponible")) {
                 vista.escriu("La moto seleccionada no està disponible.");
                 vista.escriu("Seleccioni una altra moto:");
-                m = SeleccionarMotoLocal(or);
+                m = seleccionarMoto(or);
             }
             res.setMoto(m);
             res.setM(m.getId());
@@ -298,7 +297,7 @@ public class Motorent implements Serializable
             or.addReserva(res);
             d.addReserva(res);
             vista.escriu("Resum de la reserva:");
-            vista.escriu(((Client)Usuari).imprimirReservaActiva());
+            vista.escriu(res.toString());
         }
     }  
     
@@ -312,7 +311,7 @@ public class Motorent implements Serializable
         
         local = null;
         
-        vista.escriu(ImprimirLocals());
+        vista.escriu(imprimirLocal());
         vista.escriu("Seleccioni l'identificador(ID) del local que desitja:");
         i = vista.llegeixString();
         for(Object l:lst_local) {
@@ -323,7 +322,7 @@ public class Motorent implements Serializable
         return local;
     }
  
-    private Moto SeleccionarMotoLocal (Local local)
+    private Moto seleccionarMoto (Local local)
     {
         Moto moto;
         String i;
@@ -365,7 +364,7 @@ public class Motorent implements Serializable
         }
         vista.escriu(res.toString());
         Moto m = res.getMoto();
-        o.rmMoto(m);
+        o.removeMoto(m);
     }
     
     public void RetornarMoto() {
@@ -385,11 +384,12 @@ public class Motorent implements Serializable
         Moto m = res.getMoto();
         vista.escriu("Introdueixi l'estat de la moto(avariada/dispnible)");
         String es = vista.llegeixString();
-        o.rmMoto(m);
+        o.removeMoto(m);
         m.setEstat(es);
         o.addMoto(m);
         if(es.equals("avariada")) {
-            res.setFalta(faltes+1);
+            res.addFalta();
+            cl.addFalta();
         }
         vista.escriu("L'ha tornat amb retard(S/N)?");
         if(vista.llegeixString().equals("S")) {
@@ -398,13 +398,13 @@ public class Motorent implements Serializable
             vista.escriu("Introdueixi hora de devolució(HH:MM:SS):");
             res.setHoraD(vista.llegeixString());
             res.calcularCost();
-            res.setFalta(faltes+1);
+            res.addFalta();
+            cl.addFalta();
         }
         cl.addReserva(res);
         cl.rmReservaActiva();
         
     }
-    
     public Client getClient(String id) {
         Client tmp = null;
         for(Object u:lst_usuari) {
@@ -433,13 +433,13 @@ public class Motorent implements Serializable
             vista.escriu ( "No s'ha seleccionat el local correctament\n" );
         } else
         {
-            motoT = SeleccionarMotoLocal(rebreMoto);
+            motoT = seleccionarMoto(rebreMoto);
             if (motoT == null)
             {
                 vista.escriu ( "No s'ha seleccionat amb el id correctament la moto\n" );
             } else
             {
-                rebreMoto.rmMoto (motoT);
+                rebreMoto.removeMoto (motoT);
                 ((Gerent)Usuari).getLocal().addMoto(motoT);
             }
         }

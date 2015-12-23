@@ -156,6 +156,8 @@ public class Client extends Usuari
     public void setUser(String s) {
         super.setUser(s);
     }
-
+    public void addFalta() {
+        ++faltes;
+    }
    
 }
