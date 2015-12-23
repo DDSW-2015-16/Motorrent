@@ -168,6 +168,7 @@ public class Motorent implements Serializable
     
     /****** LOGIN *****/
    public void login() {
+        vista.escriu(ImprimirUsuaris());
         vista.escriu ("Introdueixi el seu nom d'usuari: ");
         String us = vista.llegeixString();
         vista.escriu("Introdueixi la seva contrasenya:");
@@ -182,7 +183,7 @@ public class Motorent implements Serializable
         if(existeix) {
             if(Usuari instanceof Client) {
                 int max = 3;
-                if(((Client)Usuari).getFaltes() == max) {
+                if(((Client)Usuari).getFaltes() >= max) {
                     vista.escriu("Té mes de 3 faltes:");
                 }
                 else {
@@ -217,12 +218,13 @@ public class Motorent implements Serializable
                 else {
                     existeix = false;
                 }
-            } 
+            }
         }
+        
         if(!existeix) {
-            Client c = new Client();
-            c.setUser(us);
-            demanarDades(c);
+            Client u = new Client();
+            u.setUser(us);
+            demanarDades(u);
         }
     }
     
@@ -247,7 +249,7 @@ public class Motorent implements Serializable
         vista.escriu("Introdueix la seva adreça ");
         c.setAdr(vista.llegeixString());
         c.setVip("false");
-        lst_usuari.add(c);
+        lst_usuari.add(c); 
  }
 
     
