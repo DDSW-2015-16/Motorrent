@@ -434,9 +434,9 @@ public class Motorent implements Serializable
         } else
         {
             motoT = seleccionarMoto(rebreMoto);
-            if (motoT == null)
+            if (!motoT.getEstat().equals("disponible"))
             {
-                vista.escriu ( "No s'ha seleccionat amb el id correctament la moto\n" );
+                vista.escriu ( "La moto seleccionada no està disponible\n" );
             } else
             {
                 rebreMoto.removeMoto (motoT);
