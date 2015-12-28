@@ -70,7 +70,6 @@ public class Vista
             switch ( llegeixString() )
             {
                 case ( "c" ):
-                    escriu (controlador.ImprimirH());
                     break;
                 case ( "r" ):
                     controlador.ferReserva();

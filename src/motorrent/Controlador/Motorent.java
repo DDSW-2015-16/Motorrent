@@ -160,11 +160,6 @@ public class Motorent implements Serializable
         }
         return sortida;
     }
-    public String ImprimirH() {
-        String h = "";
-        h += ((Client)Usuari).imprimirHistorial();
-        return h;
-    }
     
     /****** LOGIN *****/
    public void login() {

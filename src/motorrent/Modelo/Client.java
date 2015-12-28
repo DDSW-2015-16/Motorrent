@@ -134,13 +134,6 @@ public class Client extends Usuari
         faltes += falta;
   
     }
-    public String imprimirHistorial() {
-        String h = "";
-        for(int i = 0; i < historial.size(); ++i) {
-            h += historial.get(i) + "\n";
-        }  
-        return h;
-    }
     
     public String imprimirReservaActiva() {
         String s = "";
