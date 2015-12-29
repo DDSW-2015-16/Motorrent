@@ -12,8 +12,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author Marc
+ * @param id id de la reserva
+     * @param client id del client que te la reserva
+     * @param moto id moto escollida
+     * @param cost cost reserva
+     * @param falta faltes que ha acumulat el client
+     * @param local_inici local on ha recollit la moto
+     * @param hora_inici hora inici del prestec
+     * @param fecha_inici dia inici prestec
+     * @param local_fi local on ha retornar la moto
+     * @param hora_fi hora fi prectec
+     * @param fecha_fi data fi prectes
+ * @author Leiva
  */
 public class Reserva {
     private String id;
@@ -121,7 +131,11 @@ public class Reserva {
                 "falta: " + falta + "\n";
         return s;
     }
-
+    /**
+     * Metode que comprova si un codi es correcte
+     * @param codi codi de la moto
+     * @return true o false segons si el codi es correcte o no
+     */
     boolean comprovarCodi(String codi) {
         if(codi == id) {
             return true;
@@ -134,7 +148,9 @@ public class Reserva {
     public Moto getMoto() {
         return moto;
     }
-    
+    /**
+     * Metode que calcula el cost d'una reserva
+     */
     public void calcularCost() {
         cost = 0;
         int a = 0;

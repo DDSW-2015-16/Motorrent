@@ -6,8 +6,8 @@
 package motorrent.Modelo;
 
 /**
- *
- * @author Marc
+ * Clase usuari pare de la que hereten els tres tipus d'usuari al sistema
+ * @author Leiva
  */
 public class Usuari {
     private String user;
@@ -27,7 +27,12 @@ public class Usuari {
     public String getPassword() {
         return password;
     }
-
+    /**
+     * Metode que comprova que el login d'un usuari es correcte
+     * @param us nom d'usuari a comprovar
+     * @param ps password del usuari
+     * @return true o false si el login es correcte
+     */
     public boolean checkUser(String us, String ps) {
         boolean check = false;
         if(getUsuari().equals(us)) {
@@ -45,7 +50,11 @@ public class Usuari {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+    /**
+     * Metode que comprova que un usuari existeix en el sistema
+     * @param us usuari que volem comprovar
+     * @return true o false segons si existeix o no l'usuari
+     */
     public boolean existeix_usuari(String us) {
         if(getUsuari().equals(us)) {
             return true;

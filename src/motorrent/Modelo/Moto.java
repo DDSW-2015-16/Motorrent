@@ -6,8 +6,8 @@
 package motorrent.Modelo;
 
 /**
- *
- * @author Marc
+ * Clase moto, que emmagatzema totes les dades d'una moto real
+ * @author Leiva
  */
 public class Moto {
     private String identificador;
@@ -20,9 +20,16 @@ public class Moto {
     private String estat;
     
     
-    public Moto () {
-        
-    }
+  
+    /**
+     * Constructor de la classe moto 
+     * @param id id de la moto
+     * @param matricula matricula de la moto
+     * @param marca marca de la moto
+     * @param model model de la moto
+     * @param color color de la moto
+     * @param estat estat de la moto
+     */
     public Moto (String id, String matricula, Object especificacioMoto, String color, String estat)
     {
         identificador = id;
@@ -43,7 +50,9 @@ public class Moto {
         return s;
                 
     }
-    
+    /**
+     * Metode que posa una moto a no disponible
+     */
     public void setNoDisponible() {
         estat = "No Disponible";
     }

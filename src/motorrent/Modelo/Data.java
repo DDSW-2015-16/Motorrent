@@ -6,8 +6,8 @@
 package motorrent.Modelo;
 
 /**
- *
- * @author Marc
+ * Classe que emmagatzema Dates
+ * @author Leiva
  */
 public class Data {
     private int Dia;
@@ -15,7 +15,10 @@ public class Data {
     private int Any;
     private String Data;
     
-    
+    /**
+     * Constructor de la clase data que se li pasa un string amb la data i es formata en dia/mes/any
+     * @param s data comptactada
+     */
     public Data(String s) {
         
         Data = s;

@@ -50,6 +50,10 @@ public class Local {
                 "Adreça: " + adreça + "\n";
         return s;
     }
+    /**
+     * Metode que formata la sortida per imprimir motos
+     * @return  string amb totes les motos
+     */
     public String imprimirMotos() {
         String s = "";
         int i;
@@ -73,11 +77,18 @@ public class Local {
     public int getCapacitat() {
         return capacitat;
     }
-    
+    /**
+     * Metode que afegeix una reserva al local seleccionat
+     * @param res reserva que sera afegida
+     */
     public void addReserva(Reserva res) {
         lst_reserva.add(res);
     }
-    
+    /**
+     * Metode que retorna una moto a partir del seu id
+     * @param id id de la moto
+     * @return objecte moto
+     */
     public Moto SeleccionarMoto(String id) {
         Moto tmp = null;
         for(int i = 0; i < lst_moto.size(); ++i) {
@@ -87,7 +98,11 @@ public class Local {
         }
         return tmp;
     }
-
+    /**
+     * Metode que comprova que un codi existeix en el sistema
+     * @param codi codi de la reserva 
+     * @return true o false segons si existeix la reserva al sistema
+     */
     public Reserva comprovarCodi(String codi) {
         Reserva res = null;
         Boolean trobat = false;
