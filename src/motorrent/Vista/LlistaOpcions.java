@@ -52,7 +52,6 @@ class LlistaOpcions
         Client = 
                 "Menu Client: \n" +
                 "Escoja la opcion deseada:\n"           +
-                Cgreen ( "c" ) + " - Consultar reserves anteriors\n"         +
                 Cgreen ( "r" ) + " - Fer una reserva \n"     +
                 Cgreen ( "s" ) + " - Sortir";
         noClient =

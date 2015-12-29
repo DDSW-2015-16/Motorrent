@@ -69,8 +69,6 @@ public class Vista
             escriu ( strings.getClient() );
             switch ( llegeixString() )
             {
-                case ( "c" ):
-                    break;
                 case ( "r" ):
                     controlador.ferReserva();
                     break;

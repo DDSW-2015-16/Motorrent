@@ -260,8 +260,18 @@ public class Motorent implements Serializable
             Reserva res = ((Client)Usuari).crearReserva();
             res.setId("r"+(numeroReserves++));
             Local or = seleccionarLocal();
+            while(or == null) {
+                vista.escriu("Local no disponible");
+                vista.escriu("Seleccioni un altre local:");
+                or = seleccionarLocal();
+            }
             res.setOrigen(or.getId());
             Moto m = seleccionarMoto(or);
+            while(m == null) {
+                vista.escriu("La moto seleccionada no existeix");
+                vista.escriu("Seleccioni una altra moto:");
+                m = seleccionarMoto(or);
+            }
             while(!m.getEstat().equals("disponible")) {
                 vista.escriu("La moto seleccionada no està disponible.");
                 vista.escriu("Seleccioni una altra moto:");
@@ -270,6 +280,11 @@ public class Motorent implements Serializable
             res.setMoto(m);
             res.setM(m.getId());
             Local d = seleccionarLocal();
+            while(d == null) {
+                vista.escriu("Local no disponible");
+                vista.escriu("Seleccioni un altre local:");
+                d = seleccionarLocal();
+            }
             while (!checkCapacitat(d)) {
                 vista.escriu("El local no té suficient espai");
                 vista.escriu("Seleccioni un altre local");
