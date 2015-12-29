@@ -139,8 +139,8 @@ public class Reserva {
         cost = 0;
         int a = 0;
         try {
-            String r = DataR+ " " + horaR;
-            String d = DataD+ " " + horaD;
+            String r = DataR.toString()+ " " + horaR;
+            String d = DataD.toString()+ " " + horaD;
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             Date dateR = simpleDateFormat.parse(r);
             Date dateD = simpleDateFormat.parse(d);

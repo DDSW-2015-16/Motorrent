@@ -73,6 +73,7 @@ public class Vista
                     break;
                 case ( "r" ):
                     controlador.ferReserva();
+                    break;
                 case ( "s" ):
                     loop = false;
                     break;
