@@ -141,6 +141,18 @@ public class Client extends Usuari
         return s;
     }
     
+    public String getInforme(String mes){
+        String informe = "";
+        for (Reserva u:historial){
+           
+            
+            if(Integer.parseInt(mes) == u.getMesDataR()){
+               informe += this.getUser() + "\n";
+               informe += u.toString() + "\n";
+            }
+        }
+        return informe;
+    }
     
     public void setPassword(String s) {
         super.setPassword(s);
@@ -152,5 +164,7 @@ public class Client extends Usuari
     public void addFalta() {
         ++faltes;
     }
+
+    
    
 }

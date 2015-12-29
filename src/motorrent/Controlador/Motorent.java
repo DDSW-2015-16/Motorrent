@@ -343,7 +343,17 @@ public class Motorent implements Serializable
 
     /**** GENERAR INFORME ***/
     public void generarInforme(){
+        vista.escriu("Escriu el mes (número) del que vol generar l'informe'");
+        String informe = "Informe del mes "  ;
+        String mes = vista.llegeixString();
+        informe +=  mes + "\n";
+        for (Object u:lst_usuari){
+            if(u instanceof Client){
+                informe += ((Client)u).getInforme(mes);
+            }
+        }
         
+        vista.escriu(informe);
     }
     /***** ENTREGAR MOTO ****/
     public void entregarMoto() {
@@ -439,5 +449,9 @@ public class Motorent implements Serializable
             }
         }
     }
+    
+    
+    
+    
 }
 

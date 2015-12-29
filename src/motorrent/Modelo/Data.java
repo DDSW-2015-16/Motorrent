@@ -17,11 +17,18 @@ public class Data {
     
     
     public Data(String s) {
-        Data = s;
+        
+        Dia = Integer.parseInt(s.substring(0,2));
+        Mes = Integer.parseInt(s.substring(3,5));
+        Any = Integer.parseInt(s.substring(6,10));
     }
     
     public String toString() {
         return Data;
+    }
+
+    public int getMes() {
+        return Mes;
     }
     
 }

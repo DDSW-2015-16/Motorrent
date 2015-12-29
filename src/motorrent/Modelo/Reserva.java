@@ -18,10 +18,8 @@ import java.util.logging.Logger;
 public class Reserva {
     private String id;
     private String idC;
-    private int Retard;
     private Data DataR;
-    private Data DataD;
-    private Data DataRealitzacio;
+    private Data DataD; 
     private String Origen;
     private String Desti;
     private String m;
@@ -43,6 +41,19 @@ public class Reserva {
 
     public void setDataR(String DataR) {
         this.DataR = new Data(DataR);
+    }
+
+    public Data getDataR() {
+        return DataR;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public int getMesDataR() {
+        
+        return DataR.getMes() ;
     }
 
     public void setDataD(String DataD) {
@@ -151,5 +162,7 @@ public class Reserva {
         }
         
     }
+
+    
 }
     

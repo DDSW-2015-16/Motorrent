@@ -123,7 +123,8 @@ public class Vista
                     controlador.ImprimirLocalsMotos();
                     break;
                 case ( "g" ):
-                    escriu ("Generar infomre");
+                    escriu ("");
+                    controlador.generarInforme();
                     break;
                 case ( "s" ):
                     loop = false;
